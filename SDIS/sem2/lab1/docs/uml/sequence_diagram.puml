@@ -42,6 +42,11 @@ end
 
 == Investigation Phase ==
 
+S -> I : __init__(applications)
+activate I
+I --> S : Investigation instance
+deactivate I
+
 S -> I : investigate_all()
 activate I
 
@@ -80,6 +85,9 @@ P --> S : list[Policeman]
 deactivate P
 
 loop For each officer with assignment
+    S -> O : assignment
+    O --> S : (crime, severity) | None
+
     S -> O : arrest()
     activate O
     O -> O : Check success\n(fatigue, severity)
@@ -87,7 +95,7 @@ loop For each officer with assignment
     alt Success
         O --> S : True
         O -> O : _criminal = None
-        note right: Crime will be removed
+        S -> S : solved_crime_ids.add(id(crime))
     else Failure
         O --> S : False
         note right: Suspect remains
@@ -101,8 +109,10 @@ end
 
 == Cleanup Phase ==
 
-loop For each arrested suspect
-    S -> S : Remove crime from\napplications
+loop For each crime in applications
+    alt id(crime) in solved_crime_ids
+        S -> S : Remove crime from\napplications
+    end
 end
 
 == Security Update ==

@@ -28,10 +28,11 @@ OnDuty --> OffDuty : fire()\nis_work = False
 OnDuty --> Assigned : assign_crime(crime)
 Assigned --> OnDuty : clear_assignment()
 Assigned --> Arresting : arrest()
-Arresting --> OnDuty : Success\n_criminal = None\nfatigue++
-Arresting --> Assigned : Failure\nfatigue++
-OnDuty --> Resting : fatigue >= 6\ncheck_exhaustion()
-Resting --> OnDuty : recovery()\nfatigue = 0
+Arresting --> OnDuty : Success [fatigue < 6]\n_criminal = None\nfatigue++
+Arresting --> Assigned : Failure [fatigue < 6]\nfatigue++
+Arresting --> Resting : fatigue >= 6 after attempt\ncheck_exhaustion()
+Resting --> Assigned : recovery() [has_assignment]\nfatigue = 0\nis_resting = False
+Resting --> OnDuty : recovery() [not has_assignment]\nfatigue = 0\nis_resting = False
 
 ' Notes attached to states
 note right of OnDuty
@@ -62,7 +63,8 @@ note right of Resting
   ----
   fatigue >= 6
   is_resting = True
-  Cannot receive assignments
+  New assignments are blocked by PoliceSystem
+  May keep existing assignment after failed arrest
 end note
 
 note right of OffDuty

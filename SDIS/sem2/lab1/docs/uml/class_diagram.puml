@@ -43,10 +43,10 @@ class Citizen {
 }
 
 class Crime {
-    - _description: str
-    - _suspect: Citizen
-    - _zone: str
-    - _law: Law
+    + description: str
+    + suspect: Citizen
+    + zone: str
+    + law: Law
     + __init__(suspect, description, zone, law)
     + severity: int <<property>>
 }
@@ -58,40 +58,50 @@ class Policeman {
     - _fatigue: int
     - _criminal: tuple | None
     - _is_resting: bool
-    + __init__(lastname: str, zone: str, is_work: bool)
+    + __init__(lastname: str, zone: str | int | float, is_work: bool)
     + arrest() : bool
-    + assign_crime(criminal: tuple) : None
+    + assign_crime(criminal: tuple[Crime, int]) : None
     + recovery() : None
     + clear_assignment() : None
     + check_exhaustion() : bool
+    + zone: str | int | float <<property>>
+    + lastname: str <<property>>
+    + is_work: bool <<property>>
     + has_assignment: bool <<property>>
+    + assignment: tuple[Crime, int] | None <<property>>
     + is_resting: bool <<property>>
     + fatigue: int <<property>>
 }
 
 class Police {
     - _zones: dict[str, dict]
-    + __init__(zones: dict)
+    + __init__(zones: dict[str, dict] | None = None)
+    + zones: dict[str, dict] <<property>>
+    + create_zone(zone: str) : None
     + hire(policeman: Policeman, zone: str) : None
     + fire(policeman: Policeman) : None
-    + relocate(policemen: list, zone: str) : None
+    + relocate(relocated_policemen: list[Policeman], target_zone: str) : None
     + get_policemen() : list[Policeman]
-    + add_zone(zone: str) : None
+    + get_policemen_by_zone(zone: str) : list[Policeman]
+    + get_crimes_by_zone(zone: str, all_crimes: list[Crime]) : list[Crime]
+    + get_all_crimes(applications: list[Crime]) : list[Crime]
+    + add_zone(new_zone: str) : None
     + has_zone(zone: str) : bool
     + update_zone_security(zone: str, citizen_count: int, crime_count: int) : None
-    + update_all_zones_security(citizen_count: int, crimes_by_zone: dict) : None
+    + update_all_zones_security(citizens_by_zone: dict[str, int], crimes_by_zone: dict[str, int]) : None
 }
 
 class Investigation {
     - _crimes: list[Crime]
     + __init__(crimes: list[Crime])
+    + crimes: list[Crime] <<property>>
     + investigate() : tuple[Crime, int] | None
     + investigate_all() : list[tuple[Crime, int]]
 }
 
 class Security {
     - _level: float
-    + __init__(level: float)
+    + __init__(base_level: float = 1.0)
     + level: float <<property>>
     + eval(citizens: list[Citizen], crimes: list[Crime]) : float
     + decrease(amount: float) : None
@@ -103,7 +113,7 @@ Crime "1" *-- "1" Citizen : suspect
 Crime "1" *-- "1" Law : law
 Police "1" *-- "0..*" Policeman : employs
 Policeman "0..*" --> "0..1" Crime : investigates
-Investigation "1" --> "1..*" Crime : analyzes
+Investigation "1" --> "0..*" Crime : analyzes
 Security "1" ..> "0..*" Citizen : evaluates
 Security "1" ..> "0..*" Crime : evaluates
 Citizen "1" ..> "0..*" Crime : reports
