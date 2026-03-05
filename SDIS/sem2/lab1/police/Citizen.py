@@ -9,11 +9,6 @@ if TYPE_CHECKING:
     from .Law import Law
 
 
-class CitizenError(Exception):
-    """Base exception for citizen-related errors."""
-    pass
-
-
 class Citizen:
     """Represents a citizen who can report crimes and interact with police."""
 

@@ -10,11 +10,6 @@ if TYPE_CHECKING:
     from .Citizen import Citizen
 
 
-class InvestigationError(Exception):
-    """Base exception for investigation-related errors."""
-    pass
-
-
 class Investigation:
     """
     Conducts investigations on crimes to identify guilty parties.

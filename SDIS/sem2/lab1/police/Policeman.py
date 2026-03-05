@@ -9,11 +9,6 @@ if TYPE_CHECKING:
     from .Crime import Crime
 
 
-class PolicemanError(Exception):
-    """Base exception for policeman-related errors."""
-    pass
-
-
 class Policeman:
     """Represents a police officer who can arrest criminals and investigate crimes."""
 
@@ -114,6 +109,11 @@ class Policeman:
     def has_assignment(self) -> bool:
         """Check if the officer has an assigned criminal."""
         return self._criminal is not None
+
+    @property
+    def assignment(self) -> tuple[Crime, int] | None:
+        """Return current assignment tuple (crime, severity) if present."""
+        return self._criminal
 
     @property
     def is_resting(self) -> bool:

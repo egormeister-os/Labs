@@ -3,11 +3,6 @@
 from __future__ import annotations
 
 
-class LawError(Exception):
-    """Base exception for law-related errors."""
-    pass
-
-
 class Law:
     """Represents a legal statute with an article number and severity level."""
 

@@ -124,6 +124,10 @@ class PoliceSystem:
             print(f"✗ Zone '{zone}' does not exist")
             return
 
+        if suspect_idx < 0 or law_idx < 0:
+            print("✗ Invalid citizen or law index")
+            return
+
         try:
             suspect = self.citizens[suspect_idx]
             law = self.laws[law_idx]
@@ -144,6 +148,9 @@ class PoliceSystem:
 
     def delete_statement(self, index: int) -> None:
         """Delete a crime statement by index."""
+        if index < 0:
+            print("✗ Invalid application index")
+            return
         try:
             removed = self.applications.pop(index)
             self._update_security()
@@ -171,6 +178,9 @@ class PoliceSystem:
 
     def delete_citizen(self, index: int) -> None:
         """Delete a citizen by index."""
+        if index < 0:
+            print("✗ Invalid citizen index")
+            return
         try:
             removed = self.citizens.pop(index)
             self._update_security()
@@ -279,6 +289,9 @@ class PoliceSystem:
         if not self.police.has_zone(target_zone):
             print(f"✗ Target zone '{target_zone}' does not exist")
             return
+        if any(i < 0 for i in indexes):
+            print("✗ Invalid policeman index")
+            return
 
         policemen = self.police.get_policemen()
         try:
@@ -362,20 +375,19 @@ class PoliceSystem:
         officers = self.police.get_policemen()
         arrests = 0
         failed = 0
-        arrested_suspects: set[str] = set()
+        solved_crime_ids: set[int] = set()
 
         print("\n🚔 Attempting arrests...\n")
         
         for officer in officers:
             if officer.has_assignment:
-                # Store suspect name BEFORE arrest (since it gets cleared on success)
-                suspect_name = officer._criminal[0].suspect.name if officer._criminal else None
+                assignment = officer.assignment
+                crime = assignment[0] if assignment else None
                 
                 if officer.arrest():
                     arrests += 1
-                    # Track which suspect was arrested
-                    if suspect_name:
-                        arrested_suspects.add(suspect_name)
+                    if crime is not None:
+                        solved_crime_ids.add(id(crime))
                     self.history.append(f"Criminal arrested by {officer.lastname}")
                     print(f"  ✓ {officer.lastname} made an arrest!")
                 else:
@@ -385,7 +397,7 @@ class PoliceSystem:
         # Remove solved crimes from applications
         removed_count = 0
         for crime in list(self.applications):
-            if crime.suspect.name in arrested_suspects:
+            if id(crime) in solved_crime_ids:
                 self.applications.remove(crime)
                 removed_count += 1
 
@@ -452,11 +464,11 @@ Examples:
 """,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    subparsers = parser.add_subparsers(dest="command", help="Available commands")
+    subparsers = parser.add_subparsers(dest="command", help="Available commands", required=True)
 
     # Statement commands
     stmt_parser = subparsers.add_parser("statement", help="Crime statement operations")
-    stmt_sub = stmt_parser.add_subparsers(dest="subcommand")
+    stmt_sub = stmt_parser.add_subparsers(dest="subcommand", required=True)
 
     stmt_add = stmt_sub.add_parser("add", help="File a crime report")
     stmt_add.add_argument("description", help="Crime description")
@@ -471,7 +483,7 @@ Examples:
 
     # Citizen commands
     cit_parser = subparsers.add_parser("citizen", help="Citizen operations")
-    cit_sub = cit_parser.add_subparsers(dest="subcommand")
+    cit_sub = cit_parser.add_subparsers(dest="subcommand", required=True)
 
     cit_add = cit_sub.add_parser("add", help="Add a citizen")
     cit_add.add_argument("name", help="Citizen name")
@@ -484,7 +496,7 @@ Examples:
 
     # Police commands
     pol_parser = subparsers.add_parser("police", help="Police operations")
-    pol_sub = pol_parser.add_subparsers(dest="subcommand")
+    pol_sub = pol_parser.add_subparsers(dest="subcommand", required=True)
 
     pol_hire = pol_sub.add_parser("hire", help="Hire a policeman")
     pol_hire.add_argument("lastname", help="Officer lastname")
@@ -510,13 +522,13 @@ Examples:
 
     # History commands
     hist_parser = subparsers.add_parser("history", help="History operations")
-    hist_sub = hist_parser.add_subparsers(dest="subcommand")
+    hist_sub = hist_parser.add_subparsers(dest="subcommand", required=True)
     hist_sub.add_parser("show", help="Show history")
     hist_sub.add_parser("clear", help="Clear history")
 
     # Law commands
     law_parser = subparsers.add_parser("law", help="Law operations")
-    law_sub = law_parser.add_subparsers(dest="subcommand")
+    law_sub = law_parser.add_subparsers(dest="subcommand", required=True)
 
     law_add = law_sub.add_parser("add", help="Add a law")
     law_add.add_argument("article", type=int, help="Article number")

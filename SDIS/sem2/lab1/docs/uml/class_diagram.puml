@@ -19,16 +19,6 @@ class ZoneNotFoundError {
 class PolicemanNotFoundError {
     + __init__(message: str)
 }
-class CitizenError {
-    + __init__(message: str)
-}
-class LawError {
-    + __init__(message: str)
-}
-class InvestigationError {
-    + __init__(message: str)
-}
-
 PoliceError <|-- ZoneNotFoundError
 PoliceError <|-- PolicemanNotFoundError
 

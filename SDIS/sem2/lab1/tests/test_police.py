@@ -12,8 +12,6 @@ from police import (
     PoliceError,
     ZoneNotFoundError,
     PolicemanNotFoundError,
-    CitizenError,
-    LawError,
 )
 
 
@@ -317,10 +315,6 @@ class TestPoliceExtended:
         assert police.has_zone("Zone A") is True
         assert police.has_zone("Zone B") is False
 
-    def test_add_crime_to_zone(self) -> None:
-        # This test is no longer applicable - crimes are stored in applications only
-        pass
-
     def test_get_crimes_by_zone_invalid(self) -> None:
         police = Police()
         # get_crimes_by_zone now takes all_crimes list
@@ -382,12 +376,6 @@ class TestPoliceExtended:
         )
         assert police.zones["Zone A"]["security"] == 5.0
         assert police.zones["Zone B"]["security"] == 5.0
-
-    def test_add_crime_duplicate_prevention(self) -> None:
-        # This test is no longer applicable since crimes are stored in applications only
-        # The Police class no longer manages crimes directly
-        pass
-
 
 class TestSecurityExtended:
     """Additional tests for Security class."""
