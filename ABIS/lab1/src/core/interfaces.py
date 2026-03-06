@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from core.bit_array32 import BitArray32
+from src.core.bit_array32 import BitArray32
 
 
 class IntegerCodec(ABC):

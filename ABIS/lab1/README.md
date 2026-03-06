@@ -54,6 +54,17 @@ lab1/
 python run.py
 ```
 
+## Import and launch rules
+- The project uses package-style imports: `from src....`.
+- Run the app from project root.
+- Internal files are modules, not standalone scripts.
+
+Examples:
+```bash
+python run.py
+python -m src.converters.sign_magnitude
+```
+
 ## Notes
 - Current files are scaffolds with class/method stubs (`NotImplementedError`).
 - Implement logic gradually and cover with tests.

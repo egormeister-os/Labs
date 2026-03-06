@@ -1,4 +1,4 @@
-from core.bit_array32 import BitArray32
+from src.core.bit_array32 import BitArray32
 
 
 class IEEE754Float32Arithmetic:

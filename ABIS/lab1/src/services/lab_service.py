@@ -1,9 +1,9 @@
-from converters.ones_complement import OnesComplementCodec
-from converters.sign_magnitude import SignMagnitudeCodec
-from converters.twos_complement import TwosComplementCodec
-from operations.bcd_excess3_arithmetic import Excess3BCDArithmetic
-from operations.float32_arithmetic import IEEE754Float32Arithmetic
-from operations.integer_arithmetic import SignMagnitudeArithmetic, TwosComplementArithmetic
+from src.converters.ones_complement import OnesComplementCodec
+from src.converters.sign_magnitude import SignMagnitudeCodec
+from src.converters.twos_complement import TwosComplementCodec
+from src.operations.bcd_excess3_arithmetic import Excess3BCDArithmetic
+from src.operations.float32_arithmetic import IEEE754Float32Arithmetic
+from src.operations.integer_arithmetic import SignMagnitudeArithmetic, TwosComplementArithmetic
 
 
 class LabService:

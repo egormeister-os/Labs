@@ -1,5 +1,5 @@
-from services.lab_service import LabService
-from ui.formatter import OutputFormatter
+from src.services.lab_service import LabService
+from src.ui.formatter import OutputFormatter
 
 
 class CommandLineInterface:

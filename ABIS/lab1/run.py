@@ -1,9 +1,4 @@
-from pathlib import Path
-import sys
-
-sys.path.insert(0, str(Path(__file__).parent / "src"))
-
-from ui.cli import CommandLineInterface
+from src.ui.cli import CommandLineInterface
 
 
 def main() -> None:
