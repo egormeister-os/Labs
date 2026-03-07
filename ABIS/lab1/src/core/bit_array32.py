@@ -21,6 +21,21 @@ class BitArray32:
     def copy(self) -> "BitArray32":
         return BitArray32(self._bits)
 
+    def invert(self) -> "BitArray32":
+        result = self.copy()
+        for i in range(self.SIZE):
+            result[i] = 1 - result[i]
+        return result
+
+    def add_one(self) -> "BitArray32":
+        result = self.copy()
+        for i in range(self.SIZE - 1, -1, -1):
+            if result[i] == 0:
+                result[i] = 1
+                break
+            result[i] = 0
+        return result
+
     def __getitem__(self, idx: int) -> int:
         return self._bits[idx]
 

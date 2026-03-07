@@ -1,36 +1,34 @@
 from src.core.bit_array32 import BitArray32
-from src.converters.sign_magnitude import SignMagnitudeCodec
+from src.converters.decimal_binary import DecimalBinaryConverter
 from src.core.interfaces import IntegerCodec
 
 
 class OnesComplementCodec(IntegerCodec):
     """Ones' complement integer representation codec."""
 
+    MIN_VALUE = -(2 ** 31 - 1)
+    MAX_VALUE = (2 ** 31) - 1
+
     def encode(self, value: int) -> BitArray32:
-        converter = SignMagnitudeCodec()
+        if value < self.MIN_VALUE or value > self.MAX_VALUE:
+            raise ValueError("Value does not fit ones' complement 32-bit range.")
 
+        converter = DecimalBinaryConverter()
         if value >= 0:
-            bits = converter.encode(value)
-            return bits
-        
-        else:
-            bits = converter.encode(abs(value))
-            for i in range(bits.SIZE):
-                bits[i] = 1 - bits[i]
+            return converter.unsigned_to_bits(value)
 
-            return bits
+        magnitude_bits = converter.unsigned_to_bits(abs(value))
+        return magnitude_bits.invert()
 
     def decode(self, input_bits: BitArray32) -> int:
-        converter = SignMagnitudeCodec()
         bits = input_bits.copy()
-        
-        if bits.bits[0] == 0:
-            value = converter.decode(bits)
-            return value
-        
-        else:
-            for i in range(1, bits.SIZE):
-                bits[i] = 1 - bits[i]
+        converter = DecimalBinaryConverter()
 
-            value = converter.decode(bits)
-            return value
+        if bits[0] == 0:
+            return converter.bits_to_unsigned(bits)
+
+        if all(bit == 1 for bit in bits):
+            return 0
+
+        magnitude_bits = bits.invert()
+        return -converter.bits_to_unsigned(magnitude_bits)
