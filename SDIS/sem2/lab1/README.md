@@ -171,10 +171,10 @@ pytest
 Run with verbose output and coverage report:
 
 ```bash
-pytest -v --cov=police --cov-report=term-missing
+pytest -v --cov=police --cov=main --cov-report=term-missing
 ```
 
-**Code Coverage: 92%** (73 tests)
+**Code Coverage: 94%** (123 tests)
 
 ## UML Diagrams
 
@@ -277,7 +277,7 @@ Data is automatically saved to the `data/` directory in pickle format:
 - **Exception Handling** - Custom exception hierarchy
 - **CLI Interface** - Both interactive and command-line modes
 - **Data Persistence** - State saved between sessions (pickle files)
-- **Unit Tests** - 73 tests with 92% coverage
+- **Unit Tests** - 123 tests with 94% coverage
 - **UML Documentation** - Class, state, and sequence diagrams (UML 2.x)
 - **Per-Zone Security Tracking** - Security levels calculated per zone (citizens/crimes ratio)
 - **Fatigue System** - Officer fatigue accumulates after each arrest attempt

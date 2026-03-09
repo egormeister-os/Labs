@@ -13,7 +13,7 @@
 | **Сохранение состояния** | Выполнено | Данные сохраняются в pickle-файлы в директории `data/` |
 | **Markdown-документация** | Выполнено | `README.md`, `REQUIREMENTS.md` |
 | **UML 2.x диаграммы** | Выполнено | PlantUML диаграммы: `class_diagram.puml`, `state_diagram.puml`, `sequence_diagram.puml` |
-| **Модульные тесты** | Выполнено | 73 теста pytest в `tests/` (92% покрытие пакета `police`) |
+| **Модульные тесты** | Выполнено | 123 теста pytest в `tests/` (94% общее покрытие `main` + `police`) |
 | **Размещение на GitHub** | Выполнено | Исходный код и документация готовы к размещению |
 
 ## Требования модели предметной области
@@ -61,7 +61,7 @@ python main.py
 ## Результаты тестирования
 
 ```
-============================== 73 passed in 0.21s ==============================
+============================== 123 passed in 0.35s ==============================
 ```
 
 Тесты покрывают:
@@ -74,7 +74,7 @@ python main.py
 - Оценка уровня безопасности, repr, str, decrease, increase
 - Восстановление офицеров (recover_policemen)
 
-**Code Coverage: 92%** (для пакета `police`)
+**Code Coverage: 94%** (общее покрытие `main` + `police`)
 
 ## UML-диаграммы
 
@@ -118,7 +118,8 @@ lab1/
 │   └── Security.py        # Оценка безопасности (по зонам)
 ├── tests/
 │   ├── test_police.py     # Тесты доменной модели
-│   └── test_main.py       # Регрессионные тесты CLI-логики
+│   ├── test_main.py       # Регрессионные тесты CLI-логики
+│   └── test_main_extended.py # Расширенные тесты main.py (CLI/interactive/dispatch)
 ├── docs/uml/
 │   ├── class_diagram.puml
 │   ├── state_diagram.puml

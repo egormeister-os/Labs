@@ -170,6 +170,9 @@ class PoliceSystem:
     # Citizen operations
     def add_citizen(self, name: str, zone: str | None = None) -> None:
         """Add a new citizen."""
+        if zone is not None and not self.police.has_zone(zone):
+            print(f"✗ Zone '{zone}' does not exist")
+            return
         citizen = Citizen(name=name, zone=zone)
         self.citizens.append(citizen)
         self._update_security()
@@ -752,9 +755,11 @@ def main() -> None:
     try:
         if args.command == "save":
             system.save_data()
+            return
         elif args.command == "exit":
             system.save_data()
             print("Goodbye!")
+            return
         elif args.command == "statement":
             if args.subcommand == "add":
                 system.create_statement(
