@@ -6,9 +6,8 @@ version: 0.1.0
 authors:
   - family-names: "Mukhamedzianau"
     given-names: "Egor"
-    orcid: "https://orcid.org/0000-0000-0000-0000"
 license: MIT
-repository-code: "https://github.com/your-username/police-management-system"
+repository-code: "https://github.com/egormeister-os/Labs/tree/master/SDIS/sem2/lab1"
 keywords:
   - "police"
   - "management"
