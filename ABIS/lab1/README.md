@@ -1,42 +1,72 @@
-# Lab 1 (OOP Structure)
+# Lab 1: Bit-Level Calculator
 
 ## Student
-- Full name: `<your name>`
-- Group: `<your group>`
+- Full name: `Mukhamedzianav Egor`
+- Group: `421701`
 - Variant: `D (Excess-3 BCD)`
 
-## Goal
-Build a bit-level calculator for representations and arithmetic over fixed 32-bit arrays (`0/1`) using an object-oriented architecture.
+## Project Goal
+This project implements a bit-level calculator for the first laboratory work.
+All core data is represented as fixed 32-bit arrays of `0` and `1`, and the
+main conversions and arithmetic operations are implemented manually without
+using helper libraries for binary or IEEE-754 encoding.
 
-## Architecture layers
-- `core` - domain primitives and shared interfaces.
-- `converters` - representation codecs (sign-magnitude, ones', two's complement).
-- `operations` - arithmetic engines (integer, float32, Excess-3 BCD).
-- `services` - facade that coordinates codecs and operations.
-- `ui` - CLI adapter (ready for replacing with GUI later).
+## Implemented Functionality
 
-## Project tree
+### Integer representations
+- Convert decimal integers to:
+  - sign-magnitude code
+  - ones' complement
+  - two's complement
+- Convert these representations back to decimal for verification
+
+### Integer arithmetic
+- Addition in two's complement
+- Subtraction in two's complement using `A + (-B)`
+- Multiplication in sign-magnitude
+- Division in sign-magnitude with binary fractional part and decimal precision
+
+### IEEE-754 float32
+- Manual encoding of decimal values to IEEE-754 single precision (32-bit)
+- Manual decoding of 32-bit float representation back to decimal
+- Operations:
+  - addition
+  - subtraction
+  - multiplication
+  - division
+- Support for special values and cases:
+  - `+0`, `-0`
+  - `+inf`, `-inf`
+  - `NaN`
+  - subnormal numbers
+
+### Excess-3 BCD
+- Encoding of decimal numbers to Excess-3 tetrads
+- Addition of two decimal numbers in Excess-3 code
+
+### CLI
+- Interactive command-line menu for all implemented laboratory tasks
+
+## Architecture
+- `src/core` - base 32-bit container and common interfaces
+- `src/converters` - integer representation codecs
+- `src/operations` - arithmetic engines
+- `src/services` - facade for calling all operations from one place
+- `src/ui` - CLI and output formatting
+- `tests` - unit and branch tests
+- `report` - theory and examples for the lab report
+
+## Project Tree
 ```text
 lab1/
 ├─ run.py
+├─ requirements.txt
 ├─ src/
 │  ├─ core/
-│  │  ├─ bit_array32.py
-│  │  └─ interfaces.py
 │  ├─ converters/
-│  │  ├─ decimal_binary.py
-│  │  ├─ sign_magnitude.py
-│  │  ├─ ones_complement.py
-│  │  └─ twos_complement.py
 │  ├─ operations/
-│  │  ├─ integer_arithmetic.py
-│  │  ├─ float32_arithmetic.py
-│  │  └─ bcd_excess3_arithmetic.py
 │  ├─ services/
-│  │  └─ lab_service.py
 │  └─ ui/
-│     ├─ cli.py
-│     └─ formatter.py
 ├─ tests/
 │  ├─ core/
 │  ├─ converters/
@@ -45,26 +75,50 @@ lab1/
 │  └─ ui/
 └─ report/
    ├─ theory.md
-   ├─ examples.md
-   └─ screenshots/
+   └─ examples.md
+```
+
+## Requirements
+- Python 3.14+
+- Packages from `requirements.txt`
+
+Install dependencies into the local virtual environment:
+
+```bash
+venv/bin/python -m pip install -r requirements.txt
 ```
 
 ## Run
+Launch the CLI from the project root:
+
 ```bash
-python run.py
+venv/bin/python run.py
 ```
 
-## Import and launch rules
-- The project uses package-style imports: `from src....`.
-- Run the app from project root.
-- Internal files are modules, not standalone scripts.
+## Tests
+Run the full test suite:
 
-Examples:
 ```bash
-python run.py
-python -m src.converters.sign_magnitude
+venv/bin/python -m pytest -q
 ```
+
+Current result:
+- `59 passed`
+
+## Coverage
+Measure coverage for source files only:
+
+```bash
+venv/bin/python -m coverage run --source=src -m pytest -q
+venv/bin/python -m coverage report -m
+```
+
+Current source coverage:
+- `98%`
 
 ## Notes
-- Current files are scaffolds with class/method stubs (`NotImplementedError`).
-- Implement logic gradually and cover with tests.
+- All main operations work with `BitArray32` or values converted to it.
+- The project is no longer a scaffold: the required laboratory functionality is
+  implemented and covered with tests.
+- The report files can be filled with examples from the CLI or from direct
+  service-layer calls.

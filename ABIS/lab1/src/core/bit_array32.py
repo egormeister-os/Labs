@@ -50,5 +50,16 @@ class BitArray32:
     def __iter__(self):
         return iter(self._bits)
 
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, BitArray32):
+            return NotImplemented
+        return self._bits == other._bits
+
+    def __repr__(self) -> str:
+        return f"BitArray32(bits={self.__str__()!r})"
+
+    def is_zero(self) -> bool:
+        return all(bit == 0 for bit in self._bits)
+
     def __str__(self) -> str:
         return "".join(str(bit) for bit in self._bits)
