@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tournaments count="60">
+  <tournament>
+    <tournament_name>Гран-при Гродно по Плавание #02-01</tournament_name>
+    <event_date>2025-03-08</event_date>
+    <sport_name>Плавание</sport_name>
+    <winner_full_name>Сидоров Игорь Павлович</winner_full_name>
+    <prize_amount>51900.00</prize_amount>
+    <winner_earnings>31140.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Гомель по Бокс #02-02</tournament_name>
+    <event_date>2025-03-12</event_date>
+    <sport_name>Бокс</sport_name>
+    <winner_full_name>Романенко Ольга Михайловна</winner_full_name>
+    <prize_amount>51875.00</prize_amount>
+    <winner_earnings>31125.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Полоцк по Волейбол #02-03</tournament_name>
+    <event_date>2025-03-16</event_date>
+    <sport_name>Волейбол</sport_name>
+    <winner_full_name>Смирнов Дмитрий Павлович</winner_full_name>
+    <prize_amount>54700.00</prize_amount>
+    <winner_earnings>32820.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Барановичи по Биатлон #02-04</tournament_name>
+    <event_date>2025-03-20</event_date>
+    <sport_name>Биатлон</sport_name>
+    <winner_full_name>Жуков Елена Михайловна</winner_full_name>
+    <prize_amount>57525.00</prize_amount>
+    <winner_earnings>34515.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Минск по Шахматы #02-05</tournament_name>
+    <event_date>2025-03-24</event_date>
+    <sport_name>Шахматы</sport_name>
+    <winner_full_name>Сидоров Сергей Павлович</winner_full_name>
+    <prize_amount>57500.00</prize_amount>
+    <winner_earnings>34500.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Гродно по Легкая атлетика #02-06</tournament_name>
+    <event_date>2025-03-28</event_date>
+    <sport_name>Легкая атлетика</sport_name>
+    <winner_full_name>Романенко Анна Михайловна</winner_full_name>
+    <prize_amount>60325.00</prize_amount>
+    <winner_earnings>36195.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Гомель по Хоккей #02-07</tournament_name>
+    <event_date>2025-04-01</event_date>
+    <sport_name>Хоккей</sport_name>
+    <winner_full_name>Смирнов Павел Павлович</winner_full_name>
+    <prize_amount>63150.00</prize_amount>
+    <winner_earnings>37890.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Полоцк по Фигурное катание #02-08</tournament_name>
+    <event_date>2025-04-05</event_date>
+    <sport_name>Фигурное катание</sport_name>
+    <winner_full_name>Жуков Наталья Михайловна</winner_full_name>
+    <prize_amount>63125.00</prize_amount>
+    <winner_earnings>37875.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Барановичи по Теннис #02-09</tournament_name>
+    <event_date>2025-04-09</event_date>
+    <sport_name>Теннис</sport_name>
+    <winner_full_name>Сидоров Кирилл Павлович</winner_full_name>
+    <prize_amount>65950.00</prize_amount>
+    <winner_earnings>39570.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Минск по Футбол #02-10</tournament_name>
+    <event_date>2025-04-13</event_date>
+    <sport_name>Футбол</sport_name>
+    <winner_full_name>Романенко Дарья Михайловна</winner_full_name>
+    <prize_amount>68775.00</prize_amount>
+    <winner_earnings>41265.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Гродно по Плавание #02-11</tournament_name>
+    <event_date>2025-04-17</event_date>
+    <sport_name>Плавание</sport_name>
+    <winner_full_name>Смирнов Алексей Павлович</winner_full_name>
+    <prize_amount>68750.00</prize_amount>
+    <winner_earnings>41250.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Гомель по Бокс #02-12</tournament_name>
+    <event_date>2025-04-21</event_date>
+    <sport_name>Бокс</sport_name>
+    <winner_full_name>Жуков Мария Михайловна</winner_full_name>
+    <prize_amount>71575.00</prize_amount>
+    <winner_earnings>42945.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Полоцк по Волейбол #02-13</tournament_name>
+    <event_date>2025-04-25</event_date>
+    <sport_name>Волейбол</sport_name>
+    <winner_full_name>Сидоров Игорь Павлович</winner_full_name>
+    <prize_amount>74400.00</prize_amount>
+    <winner_earnings>44640.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Барановичи по Биатлон #02-14</tournament_name>
+    <event_date>2025-04-29</event_date>
+    <sport_name>Биатлон</sport_name>
+    <winner_full_name>Романенко Ольга Михайловна</winner_full_name>
+    <prize_amount>74375.00</prize_amount>
+    <winner_earnings>44625.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Минск по Шахматы #02-15</tournament_name>
+    <event_date>2025-05-03</event_date>
+    <sport_name>Шахматы</sport_name>
+    <winner_full_name>Смирнов Дмитрий Павлович</winner_full_name>
+    <prize_amount>77200.00</prize_amount>
+    <winner_earnings>46320.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Гродно по Легкая атлетика #02-16</tournament_name>
+    <event_date>2025-05-07</event_date>
+    <sport_name>Легкая атлетика</sport_name>
+    <winner_full_name>Жуков Елена Михайловна</winner_full_name>
+    <prize_amount>80025.00</prize_amount>
+    <winner_earnings>48015.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Гомель по Хоккей #02-17</tournament_name>
+    <event_date>2025-05-11</event_date>
+    <sport_name>Хоккей</sport_name>
+    <winner_full_name>Сидоров Сергей Павлович</winner_full_name>
+    <prize_amount>80000.00</prize_amount>
+    <winner_earnings>48000.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Полоцк по Фигурное катание #02-18</tournament_name>
+    <event_date>2025-05-15</event_date>
+    <sport_name>Фигурное катание</sport_name>
+    <winner_full_name>Романенко Анна Михайловна</winner_full_name>
+    <prize_amount>82825.00</prize_amount>
+    <winner_earnings>49695.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Барановичи по Теннис #02-19</tournament_name>
+    <event_date>2025-05-19</event_date>
+    <sport_name>Теннис</sport_name>
+    <winner_full_name>Смирнов Павел Павлович</winner_full_name>
+    <prize_amount>85650.00</prize_amount>
+    <winner_earnings>51390.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Минск по Футбол #02-20</tournament_name>
+    <event_date>2025-05-23</event_date>
+    <sport_name>Футбол</sport_name>
+    <winner_full_name>Жуков Наталья Михайловна</winner_full_name>
+    <prize_amount>85625.00</prize_amount>
+    <winner_earnings>51375.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Гродно по Плавание #02-21</tournament_name>
+    <event_date>2025-05-27</event_date>
+    <sport_name>Плавание</sport_name>
+    <winner_full_name>Сидоров Кирилл Павлович</winner_full_name>
+    <prize_amount>88450.00</prize_amount>
+    <winner_earnings>53070.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Гомель по Бокс #02-22</tournament_name>
+    <event_date>2025-05-31</event_date>
+    <sport_name>Бокс</sport_name>
+    <winner_full_name>Романенко Дарья Михайловна</winner_full_name>
+    <prize_amount>91275.00</prize_amount>
+    <winner_earnings>54765.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Полоцк по Волейбол #02-23</tournament_name>
+    <event_date>2025-06-04</event_date>
+    <sport_name>Волейбол</sport_name>
+    <winner_full_name>Смирнов Алексей Павлович</winner_full_name>
+    <prize_amount>91250.00</prize_amount>
+    <winner_earnings>54750.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Барановичи по Биатлон #02-24</tournament_name>
+    <event_date>2025-06-08</event_date>
+    <sport_name>Биатлон</sport_name>
+    <winner_full_name>Жуков Мария Михайловна</winner_full_name>
+    <prize_amount>94075.00</prize_amount>
+    <winner_earnings>56445.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Минск по Шахматы #02-25</tournament_name>
+    <event_date>2025-06-12</event_date>
+    <sport_name>Шахматы</sport_name>
+    <winner_full_name>Сидоров Игорь Павлович</winner_full_name>
+    <prize_amount>96900.00</prize_amount>
+    <winner_earnings>58140.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Гродно по Легкая атлетика #02-26</tournament_name>
+    <event_date>2025-06-16</event_date>
+    <sport_name>Легкая атлетика</sport_name>
+    <winner_full_name>Романенко Ольга Михайловна</winner_full_name>
+    <prize_amount>96875.00</prize_amount>
+    <winner_earnings>58125.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Гомель по Хоккей #02-27</tournament_name>
+    <event_date>2025-06-20</event_date>
+    <sport_name>Хоккей</sport_name>
+    <winner_full_name>Смирнов Дмитрий Павлович</winner_full_name>
+    <prize_amount>99700.00</prize_amount>
+    <winner_earnings>59820.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Полоцк по Фигурное катание #02-28</tournament_name>
+    <event_date>2025-06-24</event_date>
+    <sport_name>Фигурное катание</sport_name>
+    <winner_full_name>Жуков Елена Михайловна</winner_full_name>
+    <prize_amount>102525.00</prize_amount>
+    <winner_earnings>61515.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Барановичи по Теннис #02-29</tournament_name>
+    <event_date>2025-06-28</event_date>
+    <sport_name>Теннис</sport_name>
+    <winner_full_name>Сидоров Сергей Павлович</winner_full_name>
+    <prize_amount>102500.00</prize_amount>
+    <winner_earnings>61500.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Минск по Футбол #02-30</tournament_name>
+    <event_date>2025-07-02</event_date>
+    <sport_name>Футбол</sport_name>
+    <winner_full_name>Романенко Анна Михайловна</winner_full_name>
+    <prize_amount>105325.00</prize_amount>
+    <winner_earnings>63195.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Гродно по Плавание #02-31</tournament_name>
+    <event_date>2025-07-06</event_date>
+    <sport_name>Плавание</sport_name>
+    <winner_full_name>Смирнов Павел Павлович</winner_full_name>
+    <prize_amount>108150.00</prize_amount>
+    <winner_earnings>64890.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Гомель по Бокс #02-32</tournament_name>
+    <event_date>2025-07-10</event_date>
+    <sport_name>Бокс</sport_name>
+    <winner_full_name>Жуков Наталья Михайловна</winner_full_name>
+    <prize_amount>108125.00</prize_amount>
+    <winner_earnings>64875.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Полоцк по Волейбол #02-33</tournament_name>
+    <event_date>2025-07-14</event_date>
+    <sport_name>Волейбол</sport_name>
+    <winner_full_name>Сидоров Кирилл Павлович</winner_full_name>
+    <prize_amount>110950.00</prize_amount>
+    <winner_earnings>66570.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Барановичи по Биатлон #02-34</tournament_name>
+    <event_date>2025-07-18</event_date>
+    <sport_name>Биатлон</sport_name>
+    <winner_full_name>Романенко Дарья Михайловна</winner_full_name>
+    <prize_amount>113775.00</prize_amount>
+    <winner_earnings>68265.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Минск по Шахматы #02-35</tournament_name>
+    <event_date>2025-07-22</event_date>
+    <sport_name>Шахматы</sport_name>
+    <winner_full_name>Смирнов Алексей Павлович</winner_full_name>
+    <prize_amount>113750.00</prize_amount>
+    <winner_earnings>68250.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Гродно по Легкая атлетика #02-36</tournament_name>
+    <event_date>2025-07-26</event_date>
+    <sport_name>Легкая атлетика</sport_name>
+    <winner_full_name>Жуков Мария Михайловна</winner_full_name>
+    <prize_amount>116575.00</prize_amount>
+    <winner_earnings>69945.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Гомель по Хоккей #02-37</tournament_name>
+    <event_date>2025-07-30</event_date>
+    <sport_name>Хоккей</sport_name>
+    <winner_full_name>Сидоров Игорь Павлович</winner_full_name>
+    <prize_amount>119400.00</prize_amount>
+    <winner_earnings>71640.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Полоцк по Фигурное катание #02-38</tournament_name>
+    <event_date>2025-08-03</event_date>
+    <sport_name>Фигурное катание</sport_name>
+    <winner_full_name>Романенко Ольга Михайловна</winner_full_name>
+    <prize_amount>119375.00</prize_amount>
+    <winner_earnings>71625.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Барановичи по Теннис #02-39</tournament_name>
+    <event_date>2025-08-07</event_date>
+    <sport_name>Теннис</sport_name>
+    <winner_full_name>Смирнов Дмитрий Павлович</winner_full_name>
+    <prize_amount>122200.00</prize_amount>
+    <winner_earnings>73320.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Минск по Футбол #02-40</tournament_name>
+    <event_date>2025-08-11</event_date>
+    <sport_name>Футбол</sport_name>
+    <winner_full_name>Жуков Елена Михайловна</winner_full_name>
+    <prize_amount>125025.00</prize_amount>
+    <winner_earnings>75015.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Гродно по Плавание #02-41</tournament_name>
+    <event_date>2025-08-15</event_date>
+    <sport_name>Плавание</sport_name>
+    <winner_full_name>Сидоров Сергей Павлович</winner_full_name>
+    <prize_amount>125000.00</prize_amount>
+    <winner_earnings>75000.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Гомель по Бокс #02-42</tournament_name>
+    <event_date>2025-08-19</event_date>
+    <sport_name>Бокс</sport_name>
+    <winner_full_name>Романенко Анна Михайловна</winner_full_name>
+    <prize_amount>127825.00</prize_amount>
+    <winner_earnings>76695.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Полоцк по Волейбол #02-43</tournament_name>
+    <event_date>2025-08-23</event_date>
+    <sport_name>Волейбол</sport_name>
+    <winner_full_name>Смирнов Павел Павлович</winner_full_name>
+    <prize_amount>130650.00</prize_amount>
+    <winner_earnings>78390.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Барановичи по Биатлон #02-44</tournament_name>
+    <event_date>2025-08-27</event_date>
+    <sport_name>Биатлон</sport_name>
+    <winner_full_name>Жуков Наталья Михайловна</winner_full_name>
+    <prize_amount>130625.00</prize_amount>
+    <winner_earnings>78375.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Минск по Шахматы #02-45</tournament_name>
+    <event_date>2025-08-31</event_date>
+    <sport_name>Шахматы</sport_name>
+    <winner_full_name>Сидоров Кирилл Павлович</winner_full_name>
+    <prize_amount>133450.00</prize_amount>
+    <winner_earnings>80070.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Гродно по Легкая атлетика #02-46</tournament_name>
+    <event_date>2025-09-04</event_date>
+    <sport_name>Легкая атлетика</sport_name>
+    <winner_full_name>Романенко Дарья Михайловна</winner_full_name>
+    <prize_amount>136275.00</prize_amount>
+    <winner_earnings>81765.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Гомель по Хоккей #02-47</tournament_name>
+    <event_date>2025-09-08</event_date>
+    <sport_name>Хоккей</sport_name>
+    <winner_full_name>Смирнов Алексей Павлович</winner_full_name>
+    <prize_amount>136250.00</prize_amount>
+    <winner_earnings>81750.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Полоцк по Фигурное катание #02-48</tournament_name>
+    <event_date>2025-09-12</event_date>
+    <sport_name>Фигурное катание</sport_name>
+    <winner_full_name>Жуков Мария Михайловна</winner_full_name>
+    <prize_amount>139075.00</prize_amount>
+    <winner_earnings>83445.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Барановичи по Теннис #02-49</tournament_name>
+    <event_date>2025-09-16</event_date>
+    <sport_name>Теннис</sport_name>
+    <winner_full_name>Сидоров Игорь Павлович</winner_full_name>
+    <prize_amount>141900.00</prize_amount>
+    <winner_earnings>85140.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Минск по Футбол #02-50</tournament_name>
+    <event_date>2025-09-20</event_date>
+    <sport_name>Футбол</sport_name>
+    <winner_full_name>Романенко Ольга Михайловна</winner_full_name>
+    <prize_amount>141875.00</prize_amount>
+    <winner_earnings>85125.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Гродно по Плавание #02-51</tournament_name>
+    <event_date>2025-09-24</event_date>
+    <sport_name>Плавание</sport_name>
+    <winner_full_name>Смирнов Дмитрий Павлович</winner_full_name>
+    <prize_amount>144700.00</prize_amount>
+    <winner_earnings>86820.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Гомель по Бокс #02-52</tournament_name>
+    <event_date>2025-09-28</event_date>
+    <sport_name>Бокс</sport_name>
+    <winner_full_name>Жуков Елена Михайловна</winner_full_name>
+    <prize_amount>147525.00</prize_amount>
+    <winner_earnings>88515.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Полоцк по Волейбол #02-53</tournament_name>
+    <event_date>2025-10-02</event_date>
+    <sport_name>Волейбол</sport_name>
+    <winner_full_name>Сидоров Сергей Павлович</winner_full_name>
+    <prize_amount>147500.00</prize_amount>
+    <winner_earnings>88500.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Барановичи по Биатлон #02-54</tournament_name>
+    <event_date>2025-10-06</event_date>
+    <sport_name>Биатлон</sport_name>
+    <winner_full_name>Романенко Анна Михайловна</winner_full_name>
+    <prize_amount>150325.00</prize_amount>
+    <winner_earnings>90195.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Минск по Шахматы #02-55</tournament_name>
+    <event_date>2025-10-10</event_date>
+    <sport_name>Шахматы</sport_name>
+    <winner_full_name>Смирнов Павел Павлович</winner_full_name>
+    <prize_amount>153150.00</prize_amount>
+    <winner_earnings>91890.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Гродно по Легкая атлетика #02-56</tournament_name>
+    <event_date>2025-10-14</event_date>
+    <sport_name>Легкая атлетика</sport_name>
+    <winner_full_name>Жуков Наталья Михайловна</winner_full_name>
+    <prize_amount>153125.00</prize_amount>
+    <winner_earnings>91875.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Гомель по Хоккей #02-57</tournament_name>
+    <event_date>2025-10-18</event_date>
+    <sport_name>Хоккей</sport_name>
+    <winner_full_name>Сидоров Кирилл Павлович</winner_full_name>
+    <prize_amount>155950.00</prize_amount>
+    <winner_earnings>93570.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Полоцк по Фигурное катание #02-58</tournament_name>
+    <event_date>2025-10-22</event_date>
+    <sport_name>Фигурное катание</sport_name>
+    <winner_full_name>Романенко Дарья Михайловна</winner_full_name>
+    <prize_amount>158775.00</prize_amount>
+    <winner_earnings>95265.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Барановичи по Теннис #02-59</tournament_name>
+    <event_date>2025-10-26</event_date>
+    <sport_name>Теннис</sport_name>
+    <winner_full_name>Смирнов Алексей Павлович</winner_full_name>
+    <prize_amount>158750.00</prize_amount>
+    <winner_earnings>95250.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Минск по Футбол #02-60</tournament_name>
+    <event_date>2025-10-30</event_date>
+    <sport_name>Футбол</sport_name>
+    <winner_full_name>Жуков Мария Михайловна</winner_full_name>
+    <prize_amount>161575.00</prize_amount>
+    <winner_earnings>96945.00</winner_earnings>
+  </tournament>
+</tournaments>

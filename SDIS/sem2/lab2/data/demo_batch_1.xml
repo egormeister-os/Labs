@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tournaments count="60">
+  <tournament>
+    <tournament_name>Кубок Брест по Футбол #01-01</tournament_name>
+    <event_date>2024-02-07</event_date>
+    <sport_name>Футбол</sport_name>
+    <winner_full_name>Петров Мария Игоревна</winner_full_name>
+    <prize_amount>43450.00</prize_amount>
+    <winner_earnings>26070.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Витебск по Плавание #01-02</tournament_name>
+    <event_date>2024-02-11</event_date>
+    <sport_name>Плавание</sport_name>
+    <winner_full_name>Громов Игорь Денисович</winner_full_name>
+    <prize_amount>46275.00</prize_amount>
+    <winner_earnings>27765.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Могилев по Бокс #01-03</tournament_name>
+    <event_date>2024-02-15</event_date>
+    <sport_name>Бокс</sport_name>
+    <winner_full_name>Орлов Ольга Игоревна</winner_full_name>
+    <prize_amount>46250.00</prize_amount>
+    <winner_earnings>27750.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Пинск по Волейбол #01-04</tournament_name>
+    <event_date>2024-02-19</event_date>
+    <sport_name>Волейбол</sport_name>
+    <winner_full_name>Соколов Дмитрий Денисович</winner_full_name>
+    <prize_amount>49075.00</prize_amount>
+    <winner_earnings>29445.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Бобруйск по Биатлон #01-05</tournament_name>
+    <event_date>2024-02-23</event_date>
+    <sport_name>Биатлон</sport_name>
+    <winner_full_name>Петров Елена Игоревна</winner_full_name>
+    <prize_amount>51900.00</prize_amount>
+    <winner_earnings>31140.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Брест по Шахматы #01-06</tournament_name>
+    <event_date>2024-02-27</event_date>
+    <sport_name>Шахматы</sport_name>
+    <winner_full_name>Громов Сергей Денисович</winner_full_name>
+    <prize_amount>51875.00</prize_amount>
+    <winner_earnings>31125.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Витебск по Легкая атлетика #01-07</tournament_name>
+    <event_date>2024-03-02</event_date>
+    <sport_name>Легкая атлетика</sport_name>
+    <winner_full_name>Орлов Анна Игоревна</winner_full_name>
+    <prize_amount>54700.00</prize_amount>
+    <winner_earnings>32820.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Могилев по Хоккей #01-08</tournament_name>
+    <event_date>2024-03-06</event_date>
+    <sport_name>Хоккей</sport_name>
+    <winner_full_name>Соколов Павел Денисович</winner_full_name>
+    <prize_amount>57525.00</prize_amount>
+    <winner_earnings>34515.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Пинск по Фигурное катание #01-09</tournament_name>
+    <event_date>2024-03-10</event_date>
+    <sport_name>Фигурное катание</sport_name>
+    <winner_full_name>Петров Наталья Игоревна</winner_full_name>
+    <prize_amount>57500.00</prize_amount>
+    <winner_earnings>34500.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Бобруйск по Теннис #01-10</tournament_name>
+    <event_date>2024-03-14</event_date>
+    <sport_name>Теннис</sport_name>
+    <winner_full_name>Громов Кирилл Денисович</winner_full_name>
+    <prize_amount>60325.00</prize_amount>
+    <winner_earnings>36195.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Брест по Футбол #01-11</tournament_name>
+    <event_date>2024-03-18</event_date>
+    <sport_name>Футбол</sport_name>
+    <winner_full_name>Орлов Дарья Игоревна</winner_full_name>
+    <prize_amount>63150.00</prize_amount>
+    <winner_earnings>37890.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Витебск по Плавание #01-12</tournament_name>
+    <event_date>2024-03-22</event_date>
+    <sport_name>Плавание</sport_name>
+    <winner_full_name>Соколов Алексей Денисович</winner_full_name>
+    <prize_amount>63125.00</prize_amount>
+    <winner_earnings>37875.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Могилев по Бокс #01-13</tournament_name>
+    <event_date>2024-03-26</event_date>
+    <sport_name>Бокс</sport_name>
+    <winner_full_name>Петров Мария Игоревна</winner_full_name>
+    <prize_amount>65950.00</prize_amount>
+    <winner_earnings>39570.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Пинск по Волейбол #01-14</tournament_name>
+    <event_date>2024-03-30</event_date>
+    <sport_name>Волейбол</sport_name>
+    <winner_full_name>Громов Игорь Денисович</winner_full_name>
+    <prize_amount>68775.00</prize_amount>
+    <winner_earnings>41265.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Бобруйск по Биатлон #01-15</tournament_name>
+    <event_date>2024-04-03</event_date>
+    <sport_name>Биатлон</sport_name>
+    <winner_full_name>Орлов Ольга Игоревна</winner_full_name>
+    <prize_amount>68750.00</prize_amount>
+    <winner_earnings>41250.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Брест по Шахматы #01-16</tournament_name>
+    <event_date>2024-04-07</event_date>
+    <sport_name>Шахматы</sport_name>
+    <winner_full_name>Соколов Дмитрий Денисович</winner_full_name>
+    <prize_amount>71575.00</prize_amount>
+    <winner_earnings>42945.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Витебск по Легкая атлетика #01-17</tournament_name>
+    <event_date>2024-04-11</event_date>
+    <sport_name>Легкая атлетика</sport_name>
+    <winner_full_name>Петров Елена Игоревна</winner_full_name>
+    <prize_amount>74400.00</prize_amount>
+    <winner_earnings>44640.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Могилев по Хоккей #01-18</tournament_name>
+    <event_date>2024-04-15</event_date>
+    <sport_name>Хоккей</sport_name>
+    <winner_full_name>Громов Сергей Денисович</winner_full_name>
+    <prize_amount>74375.00</prize_amount>
+    <winner_earnings>44625.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Пинск по Фигурное катание #01-19</tournament_name>
+    <event_date>2024-04-19</event_date>
+    <sport_name>Фигурное катание</sport_name>
+    <winner_full_name>Орлов Анна Игоревна</winner_full_name>
+    <prize_amount>77200.00</prize_amount>
+    <winner_earnings>46320.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Бобруйск по Теннис #01-20</tournament_name>
+    <event_date>2024-04-23</event_date>
+    <sport_name>Теннис</sport_name>
+    <winner_full_name>Соколов Павел Денисович</winner_full_name>
+    <prize_amount>80025.00</prize_amount>
+    <winner_earnings>48015.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Брест по Футбол #01-21</tournament_name>
+    <event_date>2024-04-27</event_date>
+    <sport_name>Футбол</sport_name>
+    <winner_full_name>Петров Наталья Игоревна</winner_full_name>
+    <prize_amount>80000.00</prize_amount>
+    <winner_earnings>48000.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Витебск по Плавание #01-22</tournament_name>
+    <event_date>2024-05-01</event_date>
+    <sport_name>Плавание</sport_name>
+    <winner_full_name>Громов Кирилл Денисович</winner_full_name>
+    <prize_amount>82825.00</prize_amount>
+    <winner_earnings>49695.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Могилев по Бокс #01-23</tournament_name>
+    <event_date>2024-05-05</event_date>
+    <sport_name>Бокс</sport_name>
+    <winner_full_name>Орлов Дарья Игоревна</winner_full_name>
+    <prize_amount>85650.00</prize_amount>
+    <winner_earnings>51390.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Пинск по Волейбол #01-24</tournament_name>
+    <event_date>2024-05-09</event_date>
+    <sport_name>Волейбол</sport_name>
+    <winner_full_name>Соколов Алексей Денисович</winner_full_name>
+    <prize_amount>85625.00</prize_amount>
+    <winner_earnings>51375.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Бобруйск по Биатлон #01-25</tournament_name>
+    <event_date>2024-05-13</event_date>
+    <sport_name>Биатлон</sport_name>
+    <winner_full_name>Петров Мария Игоревна</winner_full_name>
+    <prize_amount>88450.00</prize_amount>
+    <winner_earnings>53070.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Брест по Шахматы #01-26</tournament_name>
+    <event_date>2024-05-17</event_date>
+    <sport_name>Шахматы</sport_name>
+    <winner_full_name>Громов Игорь Денисович</winner_full_name>
+    <prize_amount>91275.00</prize_amount>
+    <winner_earnings>54765.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Витебск по Легкая атлетика #01-27</tournament_name>
+    <event_date>2024-05-21</event_date>
+    <sport_name>Легкая атлетика</sport_name>
+    <winner_full_name>Орлов Ольга Игоревна</winner_full_name>
+    <prize_amount>91250.00</prize_amount>
+    <winner_earnings>54750.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Могилев по Хоккей #01-28</tournament_name>
+    <event_date>2024-05-25</event_date>
+    <sport_name>Хоккей</sport_name>
+    <winner_full_name>Соколов Дмитрий Денисович</winner_full_name>
+    <prize_amount>94075.00</prize_amount>
+    <winner_earnings>56445.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Пинск по Фигурное катание #01-29</tournament_name>
+    <event_date>2024-05-29</event_date>
+    <sport_name>Фигурное катание</sport_name>
+    <winner_full_name>Петров Елена Игоревна</winner_full_name>
+    <prize_amount>96900.00</prize_amount>
+    <winner_earnings>58140.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Бобруйск по Теннис #01-30</tournament_name>
+    <event_date>2024-06-02</event_date>
+    <sport_name>Теннис</sport_name>
+    <winner_full_name>Громов Сергей Денисович</winner_full_name>
+    <prize_amount>96875.00</prize_amount>
+    <winner_earnings>58125.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Брест по Футбол #01-31</tournament_name>
+    <event_date>2024-06-06</event_date>
+    <sport_name>Футбол</sport_name>
+    <winner_full_name>Орлов Анна Игоревна</winner_full_name>
+    <prize_amount>99700.00</prize_amount>
+    <winner_earnings>59820.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Витебск по Плавание #01-32</tournament_name>
+    <event_date>2024-06-10</event_date>
+    <sport_name>Плавание</sport_name>
+    <winner_full_name>Соколов Павел Денисович</winner_full_name>
+    <prize_amount>102525.00</prize_amount>
+    <winner_earnings>61515.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Могилев по Бокс #01-33</tournament_name>
+    <event_date>2024-06-14</event_date>
+    <sport_name>Бокс</sport_name>
+    <winner_full_name>Петров Наталья Игоревна</winner_full_name>
+    <prize_amount>102500.00</prize_amount>
+    <winner_earnings>61500.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Пинск по Волейбол #01-34</tournament_name>
+    <event_date>2024-06-18</event_date>
+    <sport_name>Волейбол</sport_name>
+    <winner_full_name>Громов Кирилл Денисович</winner_full_name>
+    <prize_amount>105325.00</prize_amount>
+    <winner_earnings>63195.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Бобруйск по Биатлон #01-35</tournament_name>
+    <event_date>2024-06-22</event_date>
+    <sport_name>Биатлон</sport_name>
+    <winner_full_name>Орлов Дарья Игоревна</winner_full_name>
+    <prize_amount>108150.00</prize_amount>
+    <winner_earnings>64890.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Брест по Шахматы #01-36</tournament_name>
+    <event_date>2024-06-26</event_date>
+    <sport_name>Шахматы</sport_name>
+    <winner_full_name>Соколов Алексей Денисович</winner_full_name>
+    <prize_amount>108125.00</prize_amount>
+    <winner_earnings>64875.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Витебск по Легкая атлетика #01-37</tournament_name>
+    <event_date>2024-06-30</event_date>
+    <sport_name>Легкая атлетика</sport_name>
+    <winner_full_name>Петров Мария Игоревна</winner_full_name>
+    <prize_amount>110950.00</prize_amount>
+    <winner_earnings>66570.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Могилев по Хоккей #01-38</tournament_name>
+    <event_date>2024-07-04</event_date>
+    <sport_name>Хоккей</sport_name>
+    <winner_full_name>Громов Игорь Денисович</winner_full_name>
+    <prize_amount>113775.00</prize_amount>
+    <winner_earnings>68265.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Пинск по Фигурное катание #01-39</tournament_name>
+    <event_date>2024-07-08</event_date>
+    <sport_name>Фигурное катание</sport_name>
+    <winner_full_name>Орлов Ольга Игоревна</winner_full_name>
+    <prize_amount>113750.00</prize_amount>
+    <winner_earnings>68250.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Бобруйск по Теннис #01-40</tournament_name>
+    <event_date>2024-07-12</event_date>
+    <sport_name>Теннис</sport_name>
+    <winner_full_name>Соколов Дмитрий Денисович</winner_full_name>
+    <prize_amount>116575.00</prize_amount>
+    <winner_earnings>69945.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Брест по Футбол #01-41</tournament_name>
+    <event_date>2024-07-16</event_date>
+    <sport_name>Футбол</sport_name>
+    <winner_full_name>Петров Елена Игоревна</winner_full_name>
+    <prize_amount>119400.00</prize_amount>
+    <winner_earnings>71640.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Витебск по Плавание #01-42</tournament_name>
+    <event_date>2024-07-20</event_date>
+    <sport_name>Плавание</sport_name>
+    <winner_full_name>Громов Сергей Денисович</winner_full_name>
+    <prize_amount>119375.00</prize_amount>
+    <winner_earnings>71625.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Могилев по Бокс #01-43</tournament_name>
+    <event_date>2024-07-24</event_date>
+    <sport_name>Бокс</sport_name>
+    <winner_full_name>Орлов Анна Игоревна</winner_full_name>
+    <prize_amount>122200.00</prize_amount>
+    <winner_earnings>73320.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Пинск по Волейбол #01-44</tournament_name>
+    <event_date>2024-07-28</event_date>
+    <sport_name>Волейбол</sport_name>
+    <winner_full_name>Соколов Павел Денисович</winner_full_name>
+    <prize_amount>125025.00</prize_amount>
+    <winner_earnings>75015.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Бобруйск по Биатлон #01-45</tournament_name>
+    <event_date>2024-08-01</event_date>
+    <sport_name>Биатлон</sport_name>
+    <winner_full_name>Петров Наталья Игоревна</winner_full_name>
+    <prize_amount>125000.00</prize_amount>
+    <winner_earnings>75000.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Брест по Шахматы #01-46</tournament_name>
+    <event_date>2024-08-05</event_date>
+    <sport_name>Шахматы</sport_name>
+    <winner_full_name>Громов Кирилл Денисович</winner_full_name>
+    <prize_amount>127825.00</prize_amount>
+    <winner_earnings>76695.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Витебск по Легкая атлетика #01-47</tournament_name>
+    <event_date>2024-08-09</event_date>
+    <sport_name>Легкая атлетика</sport_name>
+    <winner_full_name>Орлов Дарья Игоревна</winner_full_name>
+    <prize_amount>130650.00</prize_amount>
+    <winner_earnings>78390.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Могилев по Хоккей #01-48</tournament_name>
+    <event_date>2024-08-13</event_date>
+    <sport_name>Хоккей</sport_name>
+    <winner_full_name>Соколов Алексей Денисович</winner_full_name>
+    <prize_amount>130625.00</prize_amount>
+    <winner_earnings>78375.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Пинск по Фигурное катание #01-49</tournament_name>
+    <event_date>2024-08-17</event_date>
+    <sport_name>Фигурное катание</sport_name>
+    <winner_full_name>Петров Мария Игоревна</winner_full_name>
+    <prize_amount>133450.00</prize_amount>
+    <winner_earnings>80070.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Бобруйск по Теннис #01-50</tournament_name>
+    <event_date>2024-08-21</event_date>
+    <sport_name>Теннис</sport_name>
+    <winner_full_name>Громов Игорь Денисович</winner_full_name>
+    <prize_amount>136275.00</prize_amount>
+    <winner_earnings>81765.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Брест по Футбол #01-51</tournament_name>
+    <event_date>2024-08-25</event_date>
+    <sport_name>Футбол</sport_name>
+    <winner_full_name>Орлов Ольга Игоревна</winner_full_name>
+    <prize_amount>136250.00</prize_amount>
+    <winner_earnings>81750.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Витебск по Плавание #01-52</tournament_name>
+    <event_date>2024-08-29</event_date>
+    <sport_name>Плавание</sport_name>
+    <winner_full_name>Соколов Дмитрий Денисович</winner_full_name>
+    <prize_amount>139075.00</prize_amount>
+    <winner_earnings>83445.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Могилев по Бокс #01-53</tournament_name>
+    <event_date>2024-09-02</event_date>
+    <sport_name>Бокс</sport_name>
+    <winner_full_name>Петров Елена Игоревна</winner_full_name>
+    <prize_amount>141900.00</prize_amount>
+    <winner_earnings>85140.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Пинск по Волейбол #01-54</tournament_name>
+    <event_date>2024-09-06</event_date>
+    <sport_name>Волейбол</sport_name>
+    <winner_full_name>Громов Сергей Денисович</winner_full_name>
+    <prize_amount>141875.00</prize_amount>
+    <winner_earnings>85125.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Кубок Бобруйск по Биатлон #01-55</tournament_name>
+    <event_date>2024-09-10</event_date>
+    <sport_name>Биатлон</sport_name>
+    <winner_full_name>Орлов Анна Игоревна</winner_full_name>
+    <prize_amount>144700.00</prize_amount>
+    <winner_earnings>86820.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Гран-при Брест по Шахматы #01-56</tournament_name>
+    <event_date>2024-09-14</event_date>
+    <sport_name>Шахматы</sport_name>
+    <winner_full_name>Соколов Павел Денисович</winner_full_name>
+    <prize_amount>147525.00</prize_amount>
+    <winner_earnings>88515.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Мастерс Витебск по Легкая атлетика #01-57</tournament_name>
+    <event_date>2024-09-18</event_date>
+    <sport_name>Легкая атлетика</sport_name>
+    <winner_full_name>Петров Наталья Игоревна</winner_full_name>
+    <prize_amount>147500.00</prize_amount>
+    <winner_earnings>88500.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Премьер-лига Могилев по Хоккей #01-58</tournament_name>
+    <event_date>2024-09-22</event_date>
+    <sport_name>Хоккей</sport_name>
+    <winner_full_name>Громов Кирилл Денисович</winner_full_name>
+    <prize_amount>150325.00</prize_amount>
+    <winner_earnings>90195.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Суперсерия Пинск по Фигурное катание #01-59</tournament_name>
+    <event_date>2024-09-26</event_date>
+    <sport_name>Фигурное катание</sport_name>
+    <winner_full_name>Орлов Дарья Игоревна</winner_full_name>
+    <prize_amount>153150.00</prize_amount>
+    <winner_earnings>91890.00</winner_earnings>
+  </tournament>
+  <tournament>
+    <tournament_name>Открытый Бобруйск по Теннис #01-60</tournament_name>
+    <event_date>2024-09-30</event_date>
+    <sport_name>Теннис</sport_name>
+    <winner_full_name>Соколов Алексей Денисович</winner_full_name>
+    <prize_amount>153125.00</prize_amount>
+    <winner_earnings>91875.00</winner_earnings>
+  </tournament>
+</tournaments>
