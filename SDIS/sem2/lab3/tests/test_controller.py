@@ -28,14 +28,19 @@ def test_controller_navigation(project_dir: Path) -> None:
     assert controller.screen is ScreenState.MENU
 
 
-def test_local_two_player_keeps_board_orientation(project_dir: Path) -> None:
+def test_local_two_player_rotates_board_after_each_turn(project_dir: Path) -> None:
     controller = build_controller(project_dir)
     controller.start_mode(GameMode.LOCAL_TWO)
 
     first = controller.handle_board_move(2, 3, now_ms=0)
-    second = controller.handle_board_move(2, 2, now_ms=10)
-
     assert first is not None
+    assert controller.current_orientation() is Player.WHITE
+    assert controller.board_coords_from_display(0, 0) == (7, 7)
+
+    white_move = next(iter(controller.game.legal_moves().keys()))
+    display_row, display_col = controller.display_coords_from_board(*white_move)
+    second = controller.handle_board_move(display_row, display_col, now_ms=10)
+
     assert second is not None
     assert controller.current_orientation() is Player.BLACK
     assert controller.board_coords_from_display(0, 0) == (0, 0)
@@ -97,6 +102,7 @@ def test_controller_prompts_for_new_record_and_saves(project_dir: Path) -> None:
 
     assert controller.prompt.active is True
     assert controller.prompt.purpose == "save_name"
+    assert "Поздравляем" in controller.prompt.title
     assert controller.submit_name("Tester") is True
     assert controller.leaderboard.entries[0].name == "Tester"
 

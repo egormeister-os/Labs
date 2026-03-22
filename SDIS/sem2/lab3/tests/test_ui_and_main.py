@@ -212,7 +212,7 @@ def test_ui_compact_text_helpers_and_prompt_draw(project_dir: Path, monkeypatch)
     monkeypatch.setattr(app.controller.game, "winner", lambda: None)
     assert app._game_status_text() == "Ничья"
 
-    app.controller.prompt = PromptState(True, "Новый рекорд", "Введите имя", "save_name")
+    app.controller.prompt = PromptState(True, "Поздравляем! Новый рекорд", "Введите имя", "save_name")
     app.input_text = ""
     app.draw(0)
 

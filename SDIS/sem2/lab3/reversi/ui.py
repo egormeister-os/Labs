@@ -417,7 +417,7 @@ class PygameReversiApp:
         actions = [
             ("С компьютером", f"mode:{GameMode.VS_AI.value}", "Стандартный матч против жадного ИИ", True),
             ("Тренировка", f"mode:{GameMode.PRACTICE.value}", "Игра с самим собой для отработки тактики", False),
-            ("Два игрока", f"mode:{GameMode.LOCAL_TWO.value}", "Одна доска, один экран, без разворота", False),
+            ("Два игрока", f"mode:{GameMode.LOCAL_TWO.value}", "Одна доска, один экран, с поворотом после хода", False),
             ("Онлайн: host", f"mode:{GameMode.ONLINE_HOST.value}", "Открыть локальный сервер и ждать соперника", False),
             ("Онлайн: join", f"mode:{GameMode.ONLINE_JOIN.value}", "Подключиться к уже запущенной игре", False),
             ("Назад", "back", "Вернуться в главное меню", False),
@@ -702,13 +702,26 @@ class PygameReversiApp:
         self._draw_panel(panel, theme, glass=True, shadow=True, accent=True)
         title = render_text(self.controller.prompt.title, 38, theme.accent_color, bold=True)
         self.screen.blit(title, (panel.x + 34, panel.y + 26))
+        if self.controller.prompt.purpose == "save_name":
+            blit_text_block(
+                self.screen,
+                "Лучший результат. Введите имя для таблицы лидеров.",
+                panel.x + 34,
+                panel.y + 72,
+                panel.width - 68,
+                20,
+                theme.text_color,
+                line_height=22,
+                max_lines=2,
+            )
 
         field = pygame.Rect(panel.x + 34, panel.y + 108, panel.width - 68, 62)
         pygame.draw.rect(self.screen, mix_color(theme.panel_color, theme.board_color, 0.18), field, border_radius=16)
         pygame.draw.rect(self.screen, mix_color(theme.accent_color, theme.text_color, 0.10), field, width=2, border_radius=16)
         value = self.input_text or self.controller.prompt.placeholder
         self.screen.blit(render_text(value, 30, theme.text_color), (field.x + 18, field.y + 15))
-        note = render_text("Enter - подтвердить, Esc - назад", 22, mix_color(theme.text_color, theme.accent_color, 0.26))
+        note_text = "Enter - сохранить, Esc - назад" if self.controller.prompt.purpose == "save_name" else "Enter - подтвердить, Esc - назад"
+        note = render_text(note_text, 22, mix_color(theme.text_color, theme.accent_color, 0.26))
         self.screen.blit(note, (panel.x + 34, panel.y + 198))
 
     def _build_buttons(
