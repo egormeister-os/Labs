@@ -49,5 +49,3 @@
 ## Конфигурация
 
 Основные параметры находятся в [config/app.json](config/app.json), справка — в [config/help.json](config/help.json), таблица рекордов — в [config/leaderboard.json](config/leaderboard.json).
-
-# !!!ВНИМАНИЕ ПРОГРАММА ПОЛНОСТЬЮ НАПИСАННА НЕЙРОСЕТЬЮ!!!
