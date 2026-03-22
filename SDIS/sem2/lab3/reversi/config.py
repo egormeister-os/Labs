@@ -10,6 +10,7 @@ Color = tuple[int, int, int]
 
 @dataclass(frozen=True)
 class AudioConfig:
+    backend: str
     music_path: Path
     move_sound_path: Path
     flip_sound_path: Path
@@ -96,6 +97,7 @@ def load_app_config(base_dir: Path | str) -> AppConfig:
         help_path=_resolve(root, raw["files"]["help"]),
         leaderboard_path=_resolve(root, raw["files"]["leaderboard"]),
         audio=AudioConfig(
+            backend=str(audio.get("backend", "auto")),
             music_path=_resolve(root, audio["music_path"]),
             move_sound_path=_resolve(root, audio["move_sound_path"]),
             flip_sound_path=_resolve(root, audio["flip_sound_path"]),
@@ -130,4 +132,3 @@ def load_help_text(path: Path | str) -> str:
     title = raw.get("title", "Reversi")
     lines = raw.get("lines", [])
     return "\n".join([title, ""] + [str(line) for line in lines])
-

@@ -28,15 +28,17 @@ def test_controller_navigation(project_dir: Path) -> None:
     assert controller.screen is ScreenState.MENU
 
 
-def test_local_two_player_rotates_board(project_dir: Path) -> None:
+def test_local_two_player_keeps_board_orientation(project_dir: Path) -> None:
     controller = build_controller(project_dir)
     controller.start_mode(GameMode.LOCAL_TWO)
 
-    outcome = controller.handle_board_move(2, 3, now_ms=0)
+    first = controller.handle_board_move(2, 3, now_ms=0)
+    second = controller.handle_board_move(2, 2, now_ms=10)
 
-    assert outcome is not None
-    assert controller.current_orientation() is Player.WHITE
-    assert controller.board_coords_from_display(0, 0) == (7, 7)
+    assert first is not None
+    assert second is not None
+    assert controller.current_orientation() is Player.BLACK
+    assert controller.board_coords_from_display(0, 0) == (0, 0)
 
 
 def test_ai_mode_makes_response_move(project_dir: Path) -> None:
@@ -203,3 +205,13 @@ def test_controller_local_turn_logic(project_dir: Path) -> None:
     assert controller.is_local_turn() is True
     controller.handle_board_move(2, 3, 0)
     assert controller.is_local_turn() is False
+
+
+def test_controller_online_orientation_still_rotates(project_dir: Path) -> None:
+    controller = build_controller(project_dir)
+    controller.mode = GameMode.ONLINE_JOIN
+    controller.game = ReversiGame(controller.config.board_size)
+    controller.game.current_player = Player.WHITE
+
+    assert controller.current_orientation() is Player.WHITE
+    assert controller.board_coords_from_display(0, 0) == (7, 7)

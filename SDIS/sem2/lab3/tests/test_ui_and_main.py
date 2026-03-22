@@ -7,7 +7,7 @@ import pygame
 import main
 from reversi.model import MoveOutcome, Player
 from reversi.controller import GameMode, PromptState, ScreenState
-from reversi.ui import Button, PygameReversiApp, oriented_position, render_text, wrap_text
+from reversi.ui import Button, PygameReversiApp, mix_color, oriented_position, render_text, wrap_text
 
 
 def test_wrap_text_and_orientation_helpers() -> None:
@@ -15,6 +15,7 @@ def test_wrap_text_and_orientation_helpers() -> None:
     assert wrap_text("superlongword", 3) == ["superlongword"]
     assert oriented_position(8, 0, 0, Player.BLACK) == (0, 0)
     assert oriented_position(8, 0, 0, Player.WHITE) == (7, 7)
+    assert mix_color((0, 0, 0), (100, 200, 50), 0.5) == (50, 100, 25)
 
 
 def test_button_contains_point() -> None:
@@ -57,7 +58,8 @@ def test_ui_draw_and_actions(project_dir: Path) -> None:
     app._handle_action(f"mode:{GameMode.PRACTICE.value}")
     assert app.controller.screen is ScreenState.GAME
     app.draw(0)
-    assert app._board_position_from_mouse((50, 130)) == (0, 0)
+    board_rect = app._game_layout().board
+    assert app._board_position_from_mouse((board_rect.x + 5, board_rect.y + 5)) == (0, 0)
     assert app._board_position_from_mouse((5, 5)) is None
 
     app.pending_animation = MoveOutcome(Player.BLACK, (2, 3), [(3, 3)], Player.WHITE, None, False)
@@ -137,9 +139,27 @@ def test_ui_prompt_submission_and_event_handling(project_dir: Path) -> None:
     app.controller.start_mode(GameMode.PRACTICE)
     app.draw(0)
     app.sound_manager.play_sound = lambda _name: None
-    game_click = pygame.event.Event(pygame.MOUSEBUTTONDOWN, {"button": 1, "pos": (320, 320)})
+    board_rect = app._game_layout().board
+    move_row, move_col = next(iter(app.controller.game.legal_moves().keys()))
+    cell_size = board_rect.width // app.controller.game.size
+    game_click = pygame.event.Event(
+        pygame.MOUSEBUTTONDOWN,
+        {
+            "button": 1,
+            "pos": (
+                board_rect.x + move_col * cell_size + cell_size // 2,
+                board_rect.y + move_row * cell_size + cell_size // 2,
+            ),
+        },
+    )
     app.handle_event(game_click, 0)
     assert app.pending_animation is not None
+
+    app.controller.prompt = PromptState(True, "Join", "127.0.0.1:50007", "join_address")
+    app.controller.connect_to_host = lambda _value: (_ for _ in ()).throw(OSError("nope"))
+    app.input_text = "127.0.0.1:50007"
+    app._submit_prompt()
+    assert "Не удалось подключиться" in app.controller.status_message
 
 
 def test_ui_setup_and_register_animation(project_dir: Path, monkeypatch) -> None:
@@ -158,6 +178,27 @@ def test_ui_setup_and_register_animation(project_dir: Path, monkeypatch) -> None
     app._register_animation(outcome, 123)
     assert app.animation_started_at == 123
     assert music_calls["win"] == 1
+
+
+def test_ui_run_calls_audio_pump_and_shutdown(project_dir: Path, monkeypatch) -> None:
+    app = PygameReversiApp(project_dir)
+    calls = {"pump": 0, "shutdown": 0}
+    monkeypatch.setattr(app, "setup", lambda: setattr(app, "screen", pygame.display.get_surface() or pygame.display.set_mode((900, 760))) or setattr(app, "clock", pygame.time.Clock()))
+    monkeypatch.setattr(app, "draw", lambda _now: None)
+    monkeypatch.setattr(app.controller, "update", lambda _now: None)
+    monkeypatch.setattr(app.sound_manager, "pump", lambda: calls.__setitem__("pump", calls["pump"] + 1))
+    monkeypatch.setattr(app.sound_manager, "shutdown", lambda: calls.__setitem__("shutdown", calls["shutdown"] + 1))
+
+    events = [
+        [pygame.event.Event(pygame.QUIT, {})],
+        [],
+    ]
+    monkeypatch.setattr(pygame.event, "get", lambda: events.pop(0) if events else [])
+
+    app.run()
+
+    assert calls["pump"] == 1
+    assert calls["shutdown"] == 1
 
 
 def test_main_calls_run_app(monkeypatch, project_dir: Path) -> None:

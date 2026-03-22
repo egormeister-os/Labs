@@ -87,7 +87,7 @@ class ReversiController:
         elif mode is GameMode.PRACTICE:
             self.status_message = "Тренировочный режим."
         elif mode is GameMode.LOCAL_TWO:
-            self.status_message = "Локальная игра на двоих. Доска будет поворачиваться."
+            self.status_message = "Локальная игра на двоих на одном экране."
         elif mode is GameMode.ONLINE_HOST:
             self.server = OnlineServer(
                 self.config.network.host,
@@ -132,7 +132,7 @@ class ReversiController:
         return True
 
     def current_orientation(self) -> Player:
-        if self.mode in {GameMode.LOCAL_TWO, GameMode.ONLINE_HOST, GameMode.ONLINE_JOIN} and self.game:
+        if self.mode in {GameMode.ONLINE_HOST, GameMode.ONLINE_JOIN} and self.game:
             return self.game.current_player
         return Player.BLACK
 

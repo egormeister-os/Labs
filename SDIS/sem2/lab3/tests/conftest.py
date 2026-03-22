@@ -30,6 +30,7 @@ def project_dir(tmp_path: Path) -> Path:
         "game": {"board_size": 8, "animation_ms": 200, "ai_delay_ms": 100, "leaderboard_size": 10},
         "files": {"help": "config/help.json", "leaderboard": "config/leaderboard.json"},
         "audio": {
+            "backend": "auto",
             "music_path": "assets/audio/music.wav",
             "move_sound_path": "assets/audio/move.wav",
             "flip_sound_path": "assets/audio/flip.wav",
@@ -67,4 +68,3 @@ def project_dir(tmp_path: Path) -> Path:
     (tmp_path / "config" / "help.json").write_text(json.dumps(help_text), encoding="utf-8")
     (tmp_path / "config" / "leaderboard.json").write_text(json.dumps(leaderboard), encoding="utf-8")
     return tmp_path
-

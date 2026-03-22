@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 import wave
 from pathlib import Path
 
@@ -15,6 +16,7 @@ def test_load_config_and_help(project_dir: Path) -> None:
     help_text = load_help_text(config.help_path)
 
     assert config.window_width == 900
+    assert config.audio.backend == "auto"
     assert config.help_path.exists()
     assert config.leaderboard_path.exists()
     assert "Test Help" in help_text
@@ -117,7 +119,89 @@ def test_sound_manager_handles_mixer_failure(project_dir: Path, monkeypatch) -> 
             raise pygame.error("no audio")
 
     monkeypatch.setattr(pygame, "mixer", BrokenMixer())
+    monkeypatch.setattr("reversi.audio.shutil.which", lambda _name: None)
     manager = SoundManager(config.audio)
 
     assert manager.initialize() is False
 
+
+def test_sound_manager_handles_missing_mixer_module(project_dir: Path, monkeypatch) -> None:
+    config = load_app_config(project_dir)
+
+    class MissingMixer:
+        def __getattr__(self, _name: str):
+            raise NotImplementedError("mixer module not available")
+
+    monkeypatch.setattr(pygame, "mixer", MissingMixer())
+    monkeypatch.setattr("reversi.audio.shutil.which", lambda _name: None)
+    manager = SoundManager(config.audio)
+
+    assert manager.initialize() is False
+    manager.play_music()
+    manager.stop_music()
+
+
+def test_sound_manager_falls_back_to_paplay(project_dir: Path, monkeypatch) -> None:
+    config = load_app_config(project_dir)
+    commands: list[list[str]] = []
+    processes = []
+
+    class MissingMixer:
+        def __getattr__(self, _name: str):
+            raise NotImplementedError("mixer module not available")
+
+    class FakeProcess:
+        def __init__(self, command: list[str]) -> None:
+            self.command = command
+            self.returncode = None
+            self.terminated = False
+
+        def poll(self) -> int | None:
+            return self.returncode
+
+        def terminate(self) -> None:
+            self.terminated = True
+            self.returncode = 0
+
+        def wait(self, timeout: float | None = None) -> int:
+            self.returncode = 0
+            return 0
+
+        def kill(self) -> None:
+            self.returncode = -9
+
+    def fake_popen(command, **_kwargs):
+        commands.append(command)
+        process = FakeProcess(command)
+        processes.append(process)
+        return process
+
+    monkeypatch.setattr(pygame, "mixer", MissingMixer())
+    monkeypatch.setattr("reversi.audio.shutil.which", lambda name: f"/usr/bin/{name}" if name == "paplay" else None)
+    monkeypatch.setattr("reversi.audio.subprocess.Popen", fake_popen)
+
+    manager = SoundManager(config.audio)
+
+    assert manager.initialize() is True
+    assert manager.backend == "paplay"
+    manager.play_sound("move")
+    manager.play_music()
+    assert len(commands) == 2
+    assert commands[0][0].endswith("paplay")
+    assert "Reversi Effect" in "".join(commands[0])
+    assert "Reversi Music" in "".join(commands[1])
+
+    manager.music_process.returncode = 0
+    manager.pump()
+    assert len(commands) == 3
+    manager.shutdown()
+    assert any(process.terminated for process in processes)
+
+
+def test_sound_manager_uses_silent_backend(project_dir: Path) -> None:
+    config = load_app_config(project_dir)
+    manager = SoundManager(replace(config.audio, backend="silent"))
+
+    assert manager.initialize() is False
+    assert manager.backend == "silent"
+    assert "Аудио отключено" in manager.status_text
