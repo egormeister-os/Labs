@@ -57,6 +57,28 @@ def wrap_text(text: str, width: int) -> list[str]:
     return lines
 
 
+def wrap_text_to_width(text: str, size: int, max_width: int, *, bold: bool = False) -> list[str]:
+    lines: list[str] = []
+    for paragraph in text.splitlines():
+        if not paragraph:
+            lines.append("")
+            continue
+        current = ""
+        for word in paragraph.split():
+            candidate = word if not current else f"{current} {word}"
+            if not current:
+                current = candidate
+                continue
+            if render_text(candidate, size, (255, 255, 255), bold=bold).get_width() <= max_width:
+                current = candidate
+            else:
+                lines.append(current)
+                current = word
+        if current:
+            lines.append(current)
+    return lines
+
+
 def oriented_position(size: int, row: int, col: int, orientation: Player) -> tuple[int, int]:
     if orientation is Player.WHITE:
         last = size - 1
@@ -147,6 +169,34 @@ def render_text(text: str, size: int, color: tuple[int, int, int], *, bold: bool
         if x >= width - step:
             break
     return surface
+
+
+def blit_text_block(
+    surface: pygame.Surface,
+    text: str,
+    x_pos: int,
+    y_pos: int,
+    max_width: int,
+    size: int,
+    color: tuple[int, int, int],
+    *,
+    bold: bool = False,
+    line_height: int | None = None,
+    max_lines: int | None = None,
+) -> int:
+    lines = wrap_text_to_width(text, size, max_width, bold=bold)
+    if max_lines is not None and len(lines) > max_lines:
+        lines = lines[:max_lines]
+        if lines:
+            last = lines[-1].rstrip(". ")
+            lines[-1] = f"{last}..."
+    current_y = y_pos
+    step = line_height or size + 6
+    for line in lines:
+        rendered = render_text(line, size, color, bold=bold)
+        surface.blit(rendered, (x_pos, current_y))
+        current_y += step if line else max(10, step // 2)
+    return current_y
 
 
 class PygameReversiApp:
@@ -285,7 +335,6 @@ class PygameReversiApp:
         elif self.controller.screen is ScreenState.GAME:
             self._draw_game(theme, now_ms)
 
-        self._draw_footer(theme)
         if self.controller.prompt.active:
             self._draw_prompt(theme)
         pygame.display.flip()
@@ -402,15 +451,20 @@ class PygameReversiApp:
         self.screen.blit(title, (card.x + 58, card.y + 42))
         self._draw_tag(card.right - 250, card.y + 46, "Правила игры", theme)
 
-        content = pygame.Rect(card.x + 50, card.y + 120, card.width - 100, 470)
+        content = pygame.Rect(card.x + 50, card.y + 120, card.width - 100, 500)
         self._draw_panel(content, theme, inner=True)
-        top = content.y + 28
-        for line in wrap_text(self.controller.help_text, 82):
-            rendered = render_text(line, 24, theme.text_color)
-            self.screen.blit(rendered, (content.x + 28, top))
-            top += 30 if line else 18
+        blit_text_block(
+            self.screen,
+            self._help_body_text(),
+            content.x + 28,
+            content.y + 22,
+            content.width - 56,
+            20,
+            theme.text_color,
+            line_height=26,
+        )
 
-        self.buttons = self._build_buttons([("Назад", "back", "Вернуться в меню", False)], left=card.x + 50, top=card.bottom - 92, width=260, height=62)
+        self.buttons = self._build_buttons([("Назад", "back", "", False)], left=card.x + 50, top=card.bottom - 92, width=260, height=62)
         self._draw_buttons(theme, now_ms)
 
     def _draw_records(self, theme: ThemeConfig, now_ms: int) -> None:
@@ -455,7 +509,7 @@ class PygameReversiApp:
                     self.screen.blit(render_text(text, 23, theme.text_color), (x_pos, top))
                 top += 56
 
-        self.buttons = self._build_buttons([("Назад", "back", "Вернуться в меню", False)], left=card.x + 50, top=card.bottom - 92, width=260, height=62)
+        self.buttons = self._build_buttons([("Назад", "back", "", False)], left=card.x + 50, top=card.bottom - 92, width=260, height=62)
         self._draw_buttons(theme, now_ms)
 
     def _draw_waiting(self, theme: ThemeConfig, now_ms: int) -> None:
@@ -470,7 +524,7 @@ class PygameReversiApp:
         self.screen.blit(subtitle, (card.x + 56, card.y + 138))
         self.screen.blit(note, (card.x + 56, card.y + 198))
 
-        self.buttons = self._build_buttons([("Назад", "back", "Отменить и вернуться в меню", False)], left=card.x + 56, top=card.bottom - 96, width=290, height=64)
+        self.buttons = self._build_buttons([("Назад", "back", "", False)], left=card.x + 56, top=card.bottom - 96, width=290, height=64)
         self._draw_buttons(theme, now_ms)
 
     def _draw_game(self, theme: ThemeConfig, now_ms: int) -> None:
@@ -482,15 +536,24 @@ class PygameReversiApp:
 
         title = render_text("Reversi", 54, theme.accent_color, bold=True)
         self.screen.blit(title, (layout.header.x + 28, layout.header.y + 14))
-        status = render_text(self.controller.status_message, 24, theme.text_color)
-        self.screen.blit(status, (layout.header.x + 30, layout.header.y + 56))
+        blit_text_block(
+            self.screen,
+            self._game_status_text(),
+            layout.header.x + 30,
+            layout.header.y + 58,
+            layout.header.width - 340,
+            22,
+            theme.text_color,
+            line_height=24,
+            max_lines=2,
+        )
 
         mode_label = self._mode_label()
         self._draw_tag(layout.header.right - 260, layout.header.y + 22, mode_label, theme)
 
         self._draw_board(layout.board, theme, now_ms)
         self._draw_sidebar(layout.sidebar, theme)
-        self.buttons = self._build_buttons([("Назад в меню", "back", "Завершить текущую партию", False)], left=layout.sidebar.x + 28, top=layout.sidebar.bottom - 84, width=layout.sidebar.width - 56, height=60)
+        self.buttons = self._build_buttons([("Назад в меню", "back", "", False)], left=layout.sidebar.x + 28, top=layout.sidebar.bottom - 84, width=layout.sidebar.width - 56, height=60)
         self._draw_buttons(theme, now_ms)
 
     def _game_layout(self) -> GameLayout:
@@ -586,9 +649,9 @@ class PygameReversiApp:
         game = self.controller.game
         scores = game.scores()
 
-        black_card = pygame.Rect(rect.x + 26, rect.y + 28, rect.width - 52, 88)
-        white_card = pygame.Rect(rect.x + 26, rect.y + 128, rect.width - 52, 88)
-        info_card = pygame.Rect(rect.x + 26, rect.y + 236, rect.width - 52, 250)
+        black_card = pygame.Rect(rect.x + 26, rect.y + 24, rect.width - 52, 72)
+        white_card = pygame.Rect(rect.x + 26, rect.y + 110, rect.width - 52, 72)
+        info_card = pygame.Rect(rect.x + 26, rect.y + 202, rect.width - 52, 126)
 
         for card in (black_card, white_card, info_card):
             self._draw_panel(card, theme, inner=True)
@@ -597,39 +660,37 @@ class PygameReversiApp:
         self._draw_score_card(white_card, theme, Player.WHITE, scores[Player.WHITE])
 
         lines = [
-            ("Ход", game.current_player.value.lower()),
-            ("Режим", self._mode_label()),
-            ("Ходы", str(len(game.legal_moves(game.current_player)))),
-            ("Аудио", self.sound_manager.backend),
-            ("Статус", self.sound_manager.status_text.replace("Аудио: ", "")),
+            ("Ход", game.current_player.display_name()),
+            ("Доступные ходы", str(len(game.legal_moves(game.current_player)))),
         ]
-        top = info_card.y + 26
+        top = info_card.y + 18
         for label, value in lines:
-            self.screen.blit(render_text(label, 21, mix_color(theme.text_color, theme.accent_color, 0.32), bold=True), (info_card.x + 22, top))
-            self.screen.blit(render_text(value, 24, theme.text_color), (info_card.x + 22, top + 26))
-            top += 50
-
-        hint_title = render_text("Подсказки", 26, theme.accent_color, bold=True)
-        self.screen.blit(hint_title, (rect.x + 26, rect.y + 510))
-        hints = [
-            "Esc - в меню",
-            "Клик по клетке - сделать ход",
-            "Новый рекорд сохраняется через диалог",
-        ]
-        top = rect.y + 548
-        for hint in hints:
-            self.screen.blit(render_text(hint, 20, theme.text_color), (rect.x + 28, top))
-            top += 28
+            self.screen.blit(
+                render_text(label, 19, mix_color(theme.text_color, theme.accent_color, 0.32), bold=True),
+                (info_card.x + 20, top),
+            )
+            top = blit_text_block(
+                self.screen,
+                value,
+                info_card.x + 20,
+                top + 20,
+                info_card.width - 40,
+                22,
+                theme.text_color,
+                line_height=24,
+                max_lines=2,
+            )
+            top += 8
 
     def _draw_score_card(self, rect: pygame.Rect, theme: ThemeConfig, player: Player, score: int) -> None:
         assert self.screen is not None
         color = theme.black_disc_color if player is Player.BLACK else theme.white_disc_color
-        text_color = theme.text_color if player is Player.BLACK else mix_color(theme.background_color, theme.text_color, 0.22)
         disc_center = (rect.x + 38, rect.y + rect.height // 2)
         pygame.draw.circle(self.screen, color, disc_center, 20)
         label = "Черные" if player is Player.BLACK else "Белые"
-        self.screen.blit(render_text(label, 26, theme.text_color, bold=True), (rect.x + 70, rect.y + 16))
-        self.screen.blit(render_text(str(score), 34, text_color if player is Player.WHITE else theme.accent_color, bold=True), (rect.right - 70, rect.y + 18))
+        self.screen.blit(render_text(label, 24, theme.text_color, bold=True), (rect.x + 70, rect.y + 16))
+        score_surface = render_text(str(score), 34, theme.accent_color, bold=True)
+        self.screen.blit(score_surface, (rect.right - 24 - score_surface.get_width(), rect.y + 14))
 
     def _draw_prompt(self, theme: ThemeConfig) -> None:
         assert self.screen is not None
@@ -647,17 +708,8 @@ class PygameReversiApp:
         pygame.draw.rect(self.screen, mix_color(theme.accent_color, theme.text_color, 0.10), field, width=2, border_radius=16)
         value = self.input_text or self.controller.prompt.placeholder
         self.screen.blit(render_text(value, 30, theme.text_color), (field.x + 18, field.y + 15))
-        note = render_text("Enter - подтвердить, Backspace - удалить, Esc - назад", 22, mix_color(theme.text_color, theme.accent_color, 0.26))
+        note = render_text("Enter - подтвердить, Esc - назад", 22, mix_color(theme.text_color, theme.accent_color, 0.26))
         self.screen.blit(note, (panel.x + 34, panel.y + 198))
-
-    def _draw_footer(self, theme: ThemeConfig) -> None:
-        assert self.screen is not None
-        line = render_text(
-            f"Звук: {self.sound_manager.backend}  |  {self.sound_manager.status_text}",
-            18,
-            mix_color(theme.text_color, theme.accent_color, 0.22),
-        )
-        self.screen.blit(line, (40, self.config.window_height - 32))
 
     def _build_buttons(
         self,
@@ -708,10 +760,10 @@ class PygameReversiApp:
 
             pygame.draw.rect(self.screen, fill, button.rect, border_radius=18)
             pygame.draw.rect(self.screen, border, button.rect, width=2, border_radius=18)
-            self.screen.blit(render_text(button.label, 30, text_color, bold=True), (button.rect.x + 18, button.rect.y + 12))
-            if button.subtitle:
-                subtitle = render_text(button.subtitle, 18, mix_color(theme.text_color, theme.background_color, 0.08))
-                self.screen.blit(subtitle, (button.rect.x + 20, button.rect.y + button.rect.height - 26))
+            label = render_text(button.label, 30, text_color, bold=True)
+            label_x = button.rect.x + 18
+            label_y = button.rect.y + (button.rect.height - label.get_height()) // 2 - 2
+            self.screen.blit(label, (label_x, label_y))
 
     def _draw_panel(
         self,
@@ -791,6 +843,29 @@ class PygameReversiApp:
         if self.controller.mode is None:
             return "Без режима"
         return labels.get(self.controller.mode, self.controller.mode.value)
+
+    def _game_status_text(self) -> str:
+        game = self.controller.game
+        if game is None:
+            return self.controller.status_message
+
+        if game.game_over:
+            winner = game.winner()
+            return f"Победа: {winner.display_name()}" if winner else "Ничья"
+
+        if "пропущен" in self.controller.status_message.lower():
+            return "Ход пропущен"
+
+        if self.controller.mode is GameMode.VS_AI:
+            return "Ваш ход" if game.current_player is self.controller.local_player else "Ход компьютера"
+
+        return f"Ход: {game.current_player.display_name()}"
+
+    def _help_body_text(self) -> str:
+        parts = self.controller.help_text.split("\n\n", 1)
+        if len(parts) == 2:
+            return parts[1]
+        return self.controller.help_text
 
     def _board_position_from_mouse(self, position: tuple[int, int]) -> tuple[int, int] | None:
         if not self.controller.game:

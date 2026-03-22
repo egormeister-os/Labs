@@ -197,12 +197,12 @@ class ReversiController:
                 self.status_message = "Игрок подключился. Ход черных."
                 self.server.send_state(self.game)
             elif self.screen is ScreenState.GAME and self.server.poll_client(self.game):
-                self.status_message = f"Ход {self.game.current_player.value.lower()}."
+                self.status_message = f"Ход {self.game.current_player.display_name()}."
                 self._check_completion()
 
         if self.mode is GameMode.ONLINE_JOIN and self.client and self.client.poll_messages(self.game):
             self.screen = ScreenState.GAME
-            self.status_message = f"Состояние игры обновлено. Ход {self.game.current_player.value.lower()}."
+            self.status_message = f"Состояние игры обновлено. Ход {self.game.current_player.display_name()}."
             self._check_completion()
 
         if self.game.game_over:
@@ -231,7 +231,7 @@ class ReversiController:
         if outcome.skipped_player:
             self.status_message = "Ход соперника пропущен: допустимых ходов нет."
         else:
-            self.status_message = f"Следующий ход: {outcome.next_player.value.lower()}."
+            self.status_message = f"Следующий ход: {outcome.next_player.display_name()}."
 
         if self.mode is GameMode.VS_AI and self.game and self.game.current_player is self.ai_player:
             self.ai_ready_at = now_ms + self.config.ai_delay_ms
@@ -247,7 +247,7 @@ class ReversiController:
             return
 
         winner_score = scores[winner]
-        self.status_message = f"Победил {winner.value.lower()} со счетом {winner_score}."
+        self.status_message = f"Победа {winner.display_name()}: {winner_score}."
         if self._winner_is_local(winner) and self.leaderboard.is_new_record(winner_score):
             self.awaiting_name_score = winner_score
             self.awaiting_name_mode = self.mode.value if self.mode else "unknown"

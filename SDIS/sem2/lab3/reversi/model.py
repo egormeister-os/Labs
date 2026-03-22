@@ -16,6 +16,9 @@ class Player(str, Enum):
     def other(self) -> "Player":
         return Player.WHITE if self is Player.BLACK else Player.BLACK
 
+    def display_name(self) -> str:
+        return "черные" if self is Player.BLACK else "белые"
+
     def to_symbol(self) -> str:
         return "B" if self is Player.BLACK else "W"
 
@@ -228,4 +231,3 @@ class ReversiGame:
         game.current_player = Player(payload["current_player"])
         game.game_over = bool(payload["game_over"])
         return game
-

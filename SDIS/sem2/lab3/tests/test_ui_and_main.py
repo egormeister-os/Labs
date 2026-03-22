@@ -180,6 +180,72 @@ def test_ui_setup_and_register_animation(project_dir: Path, monkeypatch) -> None
     assert music_calls["win"] == 1
 
 
+def test_ui_compact_text_helpers_and_prompt_draw(project_dir: Path, monkeypatch) -> None:
+    app = PygameReversiApp(project_dir)
+    pygame.display.set_mode((app.config.window_width, app.config.window_height))
+    app.screen = pygame.display.get_surface()
+
+    app.controller.help_text = "Заголовок\n\nКороткое описание правил."
+    assert app._help_body_text() == "Короткое описание правил."
+
+    app.controller.help_text = "Одна строка без разделителя"
+    assert app._help_body_text() == "Одна строка без разделителя"
+
+    app.controller.status_message = "Текст без игры"
+    assert app._game_status_text() == "Текст без игры"
+    assert app._mode_label() == "Без режима"
+    assert app._board_position_from_mouse((20, 20)) is None
+
+    app.controller.start_mode(GameMode.VS_AI)
+    assert app._mode_label() == "С компьютером"
+    assert app._game_status_text() == "Ваш ход"
+
+    app.controller.game.current_player = Player.WHITE
+    assert app._game_status_text() == "Ход компьютера"
+
+    app.controller.status_message = "Ход пропущен: нет вариантов."
+    assert app._game_status_text() == "Ход пропущен"
+
+    app.controller.game.game_over = True
+    monkeypatch.setattr(app.controller.game, "winner", lambda: Player.BLACK)
+    assert app._game_status_text() == "Победа: черные"
+    monkeypatch.setattr(app.controller.game, "winner", lambda: None)
+    assert app._game_status_text() == "Ничья"
+
+    app.controller.prompt = PromptState(True, "Новый рекорд", "Введите имя", "save_name")
+    app.input_text = ""
+    app.draw(0)
+
+
+def test_ui_button_building_and_rendering(project_dir: Path, monkeypatch) -> None:
+    app = PygameReversiApp(project_dir)
+    pygame.display.set_mode((app.config.window_width, app.config.window_height))
+    app.screen = pygame.display.get_surface()
+
+    buttons = app._build_buttons(
+        [
+            ("Основная", "primary", "подпись", True),
+            ("Обычная", "secondary", "подпись"),
+            ("Короткая", "plain"),
+        ],
+        left=40,
+        top=40,
+        width=200,
+        height=54,
+        gap=10,
+    )
+    assert [button.action for button in buttons] == ["primary", "secondary", "plain"]
+    assert buttons[0].primary is True
+    assert buttons[1].subtitle == "подпись"
+    assert buttons[2].subtitle == ""
+
+    app.buttons = buttons
+    app.active_action = "primary"
+    app.active_action_until = 100
+    monkeypatch.setattr(pygame.mouse, "get_pos", lambda: buttons[0].rect.center)
+    app._draw_buttons(app.config.theme, 0)
+
+
 def test_ui_run_calls_audio_pump_and_shutdown(project_dir: Path, monkeypatch) -> None:
     app = PygameReversiApp(project_dir)
     calls = {"pump": 0, "shutdown": 0}
