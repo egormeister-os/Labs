@@ -1,0 +1,21 @@
+[
+  {
+    "name": "Ada",
+    "score": 44,
+    "mode": "vs_ai",
+    "played_at": "2026-03-01 18:20"
+  },
+  {
+    "name": "Linus",
+    "score": 41,
+    "mode": "local_two",
+    "played_at": "2026-03-05 20:05"
+  },
+  {
+    "name": "Grace",
+    "score": 39,
+    "mode": "practice",
+    "played_at": "2026-03-09 19:10"
+  }
+]
+

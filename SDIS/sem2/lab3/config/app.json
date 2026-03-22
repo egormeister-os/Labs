@@ -1,0 +1,45 @@
+{
+  "window": {
+    "width": 1180,
+    "height": 820,
+    "fps": 60
+  },
+  "game": {
+    "board_size": 8,
+    "animation_ms": 260,
+    "ai_delay_ms": 450,
+    "leaderboard_size": 10
+  },
+  "files": {
+    "help": "config/help.json",
+    "leaderboard": "config/leaderboard.json"
+  },
+  "audio": {
+    "music_path": "assets/audio/music.wav",
+    "move_sound_path": "assets/audio/move.wav",
+    "flip_sound_path": "assets/audio/flip.wav",
+    "error_sound_path": "assets/audio/error.wav",
+    "win_sound_path": "assets/audio/win.wav",
+    "music_volume": 0.25,
+    "sound_volume": 0.45
+  },
+  "network": {
+    "host": "127.0.0.1",
+    "port": 50007,
+    "backlog": 1,
+    "connect_timeout": 3.0
+  },
+  "theme": {
+    "background_color": [12, 44, 37],
+    "panel_color": [25, 74, 61],
+    "accent_color": [235, 201, 97],
+    "board_color": [42, 132, 92],
+    "grid_color": [210, 242, 220],
+    "black_disc_color": [20, 20, 20],
+    "white_disc_color": [245, 245, 235],
+    "hint_color": [235, 201, 97],
+    "text_color": [248, 244, 230],
+    "warning_color": [255, 155, 110]
+  }
+}
+
