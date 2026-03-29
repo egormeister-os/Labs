@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}Police{% endblock %}
+
+{% block content %}
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Operations</p>
+      <h2>Police and zones</h2>
+    </div>
+  </section>
+
+  <section class="triple-grid">
+    <article class="panel">
+      <div class="panel-header">
+        <h3>Create zone</h3>
+      </div>
+      <form method="post" action="{{ url_for('web.add_zone') }}" class="form-grid">
+        <input type="hidden" name="next" value="{{ url_for('web.police') }}">
+        <label>
+          <span>Zone name</span>
+          <input type="text" name="zone" required>
+        </label>
+        <button type="submit">Create zone</button>
+      </form>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header">
+        <h3>Hire officer</h3>
+      </div>
+      <form method="post" action="{{ url_for('web.hire_policeman') }}" class="form-grid">
+        <input type="hidden" name="next" value="{{ url_for('web.police') }}">
+        <label>
+          <span>Lastname</span>
+          <input type="text" name="lastname" required>
+        </label>
+        <label>
+          <span>Zone</span>
+          <select name="zone" required>
+            {% for zone in zone_names %}
+              <option value="{{ zone }}">{{ zone }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <button type="submit">Hire</button>
+      </form>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header">
+        <h3>Fire officer</h3>
+      </div>
+      <form method="post" action="{{ url_for('web.fire_policeman') }}" class="form-grid">
+        <input type="hidden" name="next" value="{{ url_for('web.police') }}">
+        <label>
+          <span>Lastname</span>
+          <input type="text" name="lastname" required>
+        </label>
+        <button type="submit" class="danger">Fire</button>
+      </form>
+    </article>
+  </section>
+
+  <section class="dual-grid">
+    <article class="panel">
+      <div class="panel-header">
+        <h3>Relocate officers</h3>
+      </div>
+      <form method="post" action="{{ url_for('web.relocate_policemen') }}" class="form-grid">
+        <input type="hidden" name="next" value="{{ url_for('web.police') }}">
+        <label>
+          <span>Indexes</span>
+          <input type="text" name="indexes" placeholder="0 1 2">
+        </label>
+        <label>
+          <span>Target zone</span>
+          <select name="target_zone" required>
+            {% for zone in zone_names %}
+              <option value="{{ zone }}">{{ zone }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <button type="submit">Relocate</button>
+      </form>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header">
+        <h3>Recovery</h3>
+      </div>
+      <form method="post" action="{{ url_for('web.recover_policemen') }}" class="single-action">
+        <input type="hidden" name="next" value="{{ url_for('web.police') }}">
+        <button type="submit">Recover resting officers</button>
+      </form>
+    </article>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <h3>All officers</h3>
+    </div>
+    {% if policemen %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Index</th>
+              <th>Lastname</th>
+              <th>Zone</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for policeman in policemen %}
+              <tr>
+                <td>{{ loop.index0 }}</td>
+                <td>{{ policeman.lastname }}</td>
+                <td>{{ policeman.zone }}</td>
+                <td>
+                  {% if policeman.is_resting %}
+                    Resting
+                  {% elif policeman.fatigue < 3 %}
+                    Fresh
+                  {% elif policeman.fatigue < 6 %}
+                    Tired
+                  {% else %}
+                    Exhausted
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="empty">No policemen hired.</p>
+    {% endif %}
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <h3>Zone details</h3>
+    </div>
+    {% if zones %}
+      <div class="zone-cards">
+        {% for zone in zones %}
+          <article class="zone-card">
+            <h4>{{ zone.zone }}</h4>
+            <p>Officers: {{ zone.officers|length }}</p>
+            <p>Crimes: {{ zone.crimes|length }}</p>
+            <p>Security: {{ "%.2f"|format(zone.security) }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="empty">No zones available.</p>
+    {% endif %}
+  </section>
+{% endblock %}

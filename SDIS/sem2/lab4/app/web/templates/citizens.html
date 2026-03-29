@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Citizens{% endblock %}
+
+{% block content %}
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Registry</p>
+      <h2>Citizens</h2>
+    </div>
+  </section>
+
+  <section class="dual-grid">
+    <article class="panel">
+      <div class="panel-header">
+        <h3>Add citizen</h3>
+      </div>
+      <form method="post" action="{{ url_for('web.add_citizen') }}" class="form-grid">
+        <input type="hidden" name="next" value="{{ url_for('web.citizens') }}">
+        <label>
+          <span>Name</span>
+          <input type="text" name="name" required>
+        </label>
+        <label>
+          <span>Zone</span>
+          <select name="zone">
+            <option value="">No zone</option>
+            {% for zone in zones %}
+              <option value="{{ zone }}">{{ zone }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <button type="submit">Add citizen</button>
+      </form>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header">
+        <h3>Citizens list</h3>
+      </div>
+      {% if citizens %}
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Index</th>
+                <th>Name</th>
+                <th>Zone</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for citizen in citizens %}
+                <tr>
+                  <td>{{ loop.index0 }}</td>
+                  <td>{{ citizen.name }}</td>
+                  <td>{{ citizen.zone or "—" }}</td>
+                  <td>
+                    <form method="post" action="{{ url_for('web.delete_citizen', index=loop.index0) }}">
+                      <input type="hidden" name="next" value="{{ url_for('web.citizens') }}">
+                      <button type="submit" class="danger">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="empty">No citizens registered.</p>
+      {% endif %}
+    </article>
+  </section>
+{% endblock %}

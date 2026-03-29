@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Investigation{% endblock %}
+
+{% block content %}
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Analysis</p>
+      <h2>Investigation and arrests</h2>
+    </div>
+  </section>
+
+  <section class="dual-grid">
+    <article class="panel">
+      <div class="panel-header">
+        <h3>Investigation actions</h3>
+      </div>
+      <form method="post" action="{{ url_for('web.run_investigation') }}" class="single-action">
+        <input type="hidden" name="next" value="{{ url_for('web.investigation') }}">
+        <input type="hidden" name="mode" value="investigate">
+        <button type="submit">Run investigation</button>
+      </form>
+      <form method="post" action="{{ url_for('web.run_investigation') }}" class="single-action">
+        <input type="hidden" name="next" value="{{ url_for('web.investigation') }}">
+        <input type="hidden" name="mode" value="investigate_and_arrest">
+        <button type="submit">Investigate and arrest</button>
+      </form>
+      <form method="post" action="{{ url_for('web.run_arrests') }}" class="single-action">
+        <input type="hidden" name="next" value="{{ url_for('web.investigation') }}">
+        <button type="submit" class="danger">Run arrests only</button>
+      </form>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header">
+        <h3>Quick status</h3>
+      </div>
+      <p>Pending statements: {{ statements|length }}</p>
+      <p>Available officers: {{ policemen|length }}</p>
+      <div class="zone-cards">
+        {% for zone in zone_info %}
+          <article class="zone-card">
+            <h4>{{ zone.zone }}</h4>
+            <p>Officers: {{ zone.officers|length }}</p>
+            <p>Crimes: {{ zone.crimes|length }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    </article>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <h3>Statements waiting for investigation</h3>
+    </div>
+    {% if statements %}
+      <ul class="stack-list">
+        {% for statement in statements %}
+          <li>{{ statement.description }} • {{ statement.zone }} • severity {{ statement.severity }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty">No pending statements.</p>
+    {% endif %}
+  </section>
+{% endblock %}

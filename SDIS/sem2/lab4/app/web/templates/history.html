@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}History{% endblock %}
+
+{% block content %}
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Log</p>
+      <h2>History</h2>
+    </div>
+    <form method="post" action="{{ url_for('web.clear_history') }}">
+      <button type="submit" class="danger">Clear history</button>
+    </form>
+  </section>
+
+  <section class="panel">
+    {% if history %}
+      <ul class="stack-list">
+        {% for entry in history|reverse %}
+          <li>{{ entry }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty">History is empty.</p>
+    {% endif %}
+  </section>
+{% endblock %}

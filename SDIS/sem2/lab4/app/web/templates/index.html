@@ -1,1 +1,88 @@
-=
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+  <section class="hero-card">
+    <p class="eyebrow">System Overview</p>
+    <h2>Current model state</h2>
+    <p>
+      Эта панель показывает текущее состояние доменной модели: зоны, сотрудников, граждан,
+      преступления, законы, историю и общий уровень безопасности.
+    </p>
+  </section>
+
+  <section class="metrics-grid">
+    <article class="metric-card">
+      <span>Zones</span>
+      <strong>{{ state.zones_count }}</strong>
+    </article>
+    <article class="metric-card">
+      <span>Policemen</span>
+      <strong>{{ state.policemen_count }}</strong>
+    </article>
+    <article class="metric-card">
+      <span>Citizens</span>
+      <strong>{{ state.citizens_count }}</strong>
+    </article>
+    <article class="metric-card">
+      <span>Crimes</span>
+      <strong>{{ state.crimes_count }}</strong>
+    </article>
+    <article class="metric-card">
+      <span>Laws</span>
+      <strong>{{ state.laws_count }}</strong>
+    </article>
+    <article class="metric-card">
+      <span>Security</span>
+      <strong>{{ "%.2f"|format(state.overall_security) }}</strong>
+    </article>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <h3>Zones</h3>
+    </div>
+    {% if state.zones %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Zone</th>
+              <th>Officers</th>
+              <th>Crimes</th>
+              <th>Security</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for zone in state.zones %}
+              <tr>
+                <td>{{ zone.zone }}</td>
+                <td>{{ zone.officers|length }}</td>
+                <td>{{ zone.crimes|length }}</td>
+                <td>{{ "%.2f"|format(zone.security) }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="empty">Zones are not created yet.</p>
+    {% endif %}
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <h3>Recent history</h3>
+    </div>
+    {% if state.recent_history %}
+      <ul class="stack-list">
+        {% for entry in state.recent_history|reverse %}
+          <li>{{ entry }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty">History is empty.</p>
+    {% endif %}
+  </section>
+{% endblock %}

@@ -129,7 +129,7 @@ def print_help() -> None:
 ║    police add-zone <zone>         - Create a zone         ║
 ║    police list                    - Show all officers     ║
 ║    police info                    - Show zone details     ║
-║    police recover                 - Recover resting officers ║
+║    police recover                 - Recover officers      ║
 ║    police relocate <idx...> <zone>- Move officers         ║
 ║                                                           ║
 ║  CRIME COMMANDS:                                          ║

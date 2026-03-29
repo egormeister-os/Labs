@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Statements{% endblock %}
+
+{% block content %}
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Cases</p>
+      <h2>Statements and crimes</h2>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <h3>Create statement</h3>
+    </div>
+    <form method="post" action="{{ url_for('web.add_statement') }}" class="form-grid columns-4">
+      <input type="hidden" name="next" value="{{ url_for('web.statements') }}">
+      <label>
+        <span>Description</span>
+        <input type="text" name="description" required>
+      </label>
+      <label>
+        <span>Zone</span>
+        <select name="zone" required>
+          {% for zone in zones %}
+            <option value="{{ zone }}">{{ zone }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label>
+        <span>Suspect index</span>
+        <select name="suspect_idx" required>
+          {% for citizen in citizens %}
+            <option value="{{ loop.index0 }}">[{{ loop.index0 }}] {{ citizen.name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label>
+        <span>Law index</span>
+        <select name="law_idx" required>
+          {% for law in laws %}
+            <option value="{{ loop.index0 }}">[{{ loop.index0 }}] Article {{ law.article }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <button type="submit">Create statement</button>
+    </form>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <h3>Statements list</h3>
+    </div>
+    {% if statements %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Index</th>
+              <th>Description</th>
+              <th>Zone</th>
+              <th>Suspect</th>
+              <th>Severity</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for statement in statements %}
+              <tr>
+                <td>{{ loop.index0 }}</td>
+                <td>{{ statement.description }}</td>
+                <td>{{ statement.zone }}</td>
+                <td>{{ statement.suspect.name }}</td>
+                <td>{{ statement.severity }}</td>
+                <td>
+                  <form method="post" action="{{ url_for('web.delete_statement', index=loop.index0) }}">
+                    <input type="hidden" name="next" value="{{ url_for('web.statements') }}">
+                    <button type="submit" class="danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="empty">No crime reports filed.</p>
+    {% endif %}
+  </section>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Laws{% endblock %}
+
+{% block content %}
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Rules</p>
+      <h2>Laws</h2>
+    </div>
+  </section>
+
+  <section class="dual-grid">
+    <article class="panel">
+      <div class="panel-header">
+        <h3>Add law</h3>
+      </div>
+      <form method="post" action="{{ url_for('web.add_law') }}" class="form-grid">
+        <input type="hidden" name="next" value="{{ url_for('web.laws') }}">
+        <label>
+          <span>Article</span>
+          <input type="number" name="article" required>
+        </label>
+        <label>
+          <span>Severity</span>
+          <input type="number" min="1" max="5" name="severity" required>
+        </label>
+        <label>
+          <span>Description</span>
+          <input type="text" name="desc" required>
+        </label>
+        <button type="submit">Add law</button>
+      </form>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header">
+        <h3>Law list</h3>
+      </div>
+      {% if laws %}
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Index</th>
+                <th>Article</th>
+                <th>Severity</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for law in laws %}
+                <tr>
+                  <td>{{ loop.index0 }}</td>
+                  <td>{{ law.article }}</td>
+                  <td>{{ law.severity }}</td>
+                  <td>{{ law.desc }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="empty">No laws defined.</p>
+      {% endif %}
+    </article>
+  </section>
+{% endblock %}
