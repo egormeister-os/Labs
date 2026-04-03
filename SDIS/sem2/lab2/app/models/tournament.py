@@ -74,6 +74,16 @@ class TournamentRecord:
     prize_amount: float
     winner_earnings: float
 
+    def identity_key(self) -> tuple[object, ...]:
+        return (
+            self.tournament_name.strip().casefold(),
+            self.event_date,
+            self.sport_name.strip().casefold(),
+            self.winner_full_name.strip().casefold(),
+            round(self.prize_amount, 2),
+            round(self.winner_earnings, 2),
+        )
+
     def as_tuple(self) -> tuple[str, str, str, str, str, str]:
         return (
             self.tournament_name,

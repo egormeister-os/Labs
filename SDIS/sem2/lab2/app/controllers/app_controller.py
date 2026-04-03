@@ -1,21 +1,26 @@
 from __future__ import annotations
 
 from pathlib import Path
+from collections.abc import Sequence
 
 from app.models import PageResult, SearchCriteria, TournamentRecord, TournamentRecordInput
-from app.repositories import TournamentRepository
+from app.repositories import MultiDatabaseTournamentRepository
 from app.services import TournamentXmlReader, TournamentXmlWriter
 
 
 class AppController:
-    def __init__(self, database_path: str | Path) -> None:
-        self.repository = TournamentRepository(database_path)
+    def __init__(self, database_path: str | Path | Sequence[str | Path]) -> None:
+        self.repository = MultiDatabaseTournamentRepository(database_path)
         self.xml_reader = TournamentXmlReader()
         self.xml_writer = TournamentXmlWriter()
 
     @property
     def current_database_path(self) -> Path:
         return self.repository.database_path
+
+    @property
+    def opened_database_paths(self) -> tuple[Path, ...]:
+        return self.repository.database_paths
 
     def add_record(self, record_input: TournamentRecordInput) -> TournamentRecord:
         return self.repository.add_record(record_input)
@@ -57,6 +62,9 @@ class AppController:
 
     def open_database(self, database_path: str | Path) -> None:
         self.repository.switch_database(database_path)
+
+    def open_databases(self, database_paths: Sequence[str | Path]) -> None:
+        self.repository.open_databases(database_paths)
 
     def save_database_as(self, database_path: str | Path) -> None:
         self.repository.save_as(database_path)

@@ -94,6 +94,48 @@ def test_controller_get_records_page_search_export_import_and_save(tmp_path, sam
         copied_repository.close()
 
 
+def test_controller_open_databases_merges_unique_records_and_sports(tmp_path, sample_inputs, make_input):
+    first_database = tmp_path / "first.db"
+    second_database = tmp_path / "second.db"
+
+    controller = AppController(first_database)
+    second_controller = AppController(second_database)
+    try:
+        for record_input in sample_inputs:
+            controller.add_record(record_input)
+
+        second_controller.add_record(sample_inputs[0])
+        second_controller.add_record(
+            make_input(
+                tournament_name="Гран-при Витебска",
+                event_date=date(2025, 4, 5),
+                sport_name="Basketball",
+                winner_full_name="Ковалев Андрей Сергеевич",
+                prize_amount=4100.0,
+            )
+        )
+    finally:
+        second_controller.close()
+
+    try:
+        controller.open_databases([first_database, second_database])
+
+        page = controller.get_records_page(page=1, page_size=10)
+        search_page = controller.search_records(
+            SearchCriteria(sport_name="Basketball"),
+            page=1,
+            page_size=10,
+        )
+
+        assert controller.opened_database_paths == (first_database, second_database)
+        assert page.total_count == 4
+        assert search_page.total_count == 1
+        assert search_page.items[0].tournament_name == "Гран-при Витебска"
+        assert controller.get_unique_sports() == ["Basketball", "Football", "Tennis"]
+    finally:
+        controller.close()
+
+
 @pytest.mark.parametrize(
     ("page", "page_size", "total_count", "expected"),
     [

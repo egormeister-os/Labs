@@ -83,7 +83,7 @@ class SearchDialog(QDialog):
             total_pages=page_result.total_pages,
         )
         self.summary_label.setText(
-            f"Найдено записей: {page_result.total_count}. "
+            f"Найдено уникальных записей: {page_result.total_count}. "
             f"На текущей странице показано: {page_result.current_page_count}."
         )
 

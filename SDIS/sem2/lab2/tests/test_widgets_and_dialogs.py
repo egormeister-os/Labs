@@ -101,7 +101,8 @@ def test_criteria_form_widget_to_criteria_and_reset(qapp):
     widget.reset()
     assert widget.tournament_name_edit.text() == ""
     assert widget.date_checkbox.isChecked() is False
-    assert widget.sport_combo.currentText() == ""
+    assert widget.sport_combo.currentText() == "Все виды спорта"
+    assert widget.sport_combo.currentData() == ""
     assert widget.min_prize_spin.value() == 0
 
 
@@ -139,7 +140,7 @@ def test_search_dialog_runs_search_resets_and_handles_invalid_form(qapp, control
     dialog.criteria_form.tournament_name_edit.setText("Кубок")
     dialog._run_search_from_form()
 
-    assert "Найдено записей: 2." in dialog.summary_label.text()
+    assert "Найдено уникальных записей: 2." in dialog.summary_label.text()
     assert dialog.results_table.rowCount() == 2
 
     dialog._change_page_size(5)

@@ -56,7 +56,7 @@ class MainWindow(QMainWindow):
         self._create_actions()
         self._create_menu()
         self._create_toolbar()
-        self.statusBar().showMessage(f"Текущая БД: {self.controller.current_database_path}")
+        self.statusBar().showMessage(self._build_database_status_message())
 
         self.refresh_records(1)
 
@@ -144,11 +144,12 @@ class MainWindow(QMainWindow):
             total_count=page_result.total_count,
             total_pages=page_result.total_pages,
         )
+        database_count = len(self.controller.opened_database_paths)
         self.page_title_label.setText(
-            f"Текущий массив записей. Показано {page_result.current_page_count} "
-            f"из {page_result.total_count}."
+            f"Объединенный массив записей. Показано {page_result.current_page_count} "
+            f"из {page_result.total_count}. Открыто БД: {database_count}."
         )
-        self.statusBar().showMessage(f"Текущая БД: {self.controller.current_database_path}")
+        self.statusBar().showMessage(self._build_database_status_message())
 
     def _change_page_size(self, page_size: int) -> None:
         self.page_size = page_size
@@ -179,16 +180,16 @@ class MainWindow(QMainWindow):
             self.refresh_records(self.current_page)
 
     def _open_database(self) -> None:
-        path, _ = QFileDialog.getOpenFileName(
+        paths, _ = QFileDialog.getOpenFileNames(
             self,
-            "Открыть базу данных",
+            "Открыть базы данных",
             str(self.controller.current_database_path.parent),
             "SQLite (*.db *.sqlite3);;Все файлы (*)",
         )
-        if not path:
+        if not paths:
             return
         try:
-            self.controller.open_database(path)
+            self.controller.open_databases(paths)
         except Exception as error:
             QMessageBox.warning(self, "Ошибка открытия БД", str(error))
             return
@@ -259,6 +260,18 @@ class MainWindow(QMainWindow):
     def closeEvent(self, event: QCloseEvent) -> None:
         self.controller.close()
         super().closeEvent(event)
+
+    def _build_database_status_message(self) -> str:
+        database_paths = self.controller.opened_database_paths
+        if len(database_paths) == 1:
+            return f"Текущая БД: {database_paths[0]}"
+
+        names = ", ".join(path.name for path in database_paths)
+        return (
+            f"Открыто БД: {len(database_paths)}. "
+            f"Основная: {database_paths[0].name}. "
+            f"Подключены: {names}"
+        )
 
     @staticmethod
     def _ensure_suffix(path: Path, suffix: str) -> Path:

@@ -31,7 +31,7 @@ class CriteriaFormWidget(QWidget):
         self.date_checkbox.toggled.connect(self.date_edit.setEnabled)
 
         self.sport_combo = QComboBox()
-        self.sport_combo.addItem("")
+        self.sport_combo.addItem("Все виды спорта", "")
         self.winner_name_fragment_edit = QLineEdit()
 
         self.min_prize_checkbox, self.min_prize_spin, min_prize_widget = self._build_optional_spinbox("От")
@@ -77,11 +77,14 @@ class CriteriaFormWidget(QWidget):
 
     def refresh_sports(self, sports: list[str]) -> None:
         current_value = self.sport_combo.currentText()
+        current_data = self.sport_combo.currentData()
         self.sport_combo.blockSignals(True)
         self.sport_combo.clear()
-        self.sport_combo.addItem("")
+        self.sport_combo.addItem("Все виды спорта", "")
         self.sport_combo.addItems(sports)
-        index = self.sport_combo.findText(current_value)
+        index = self.sport_combo.findData(current_data)
+        if index < 0:
+            index = self.sport_combo.findText(current_value)
         if index >= 0:
             self.sport_combo.setCurrentIndex(index)
         self.sport_combo.blockSignals(False)
@@ -103,10 +106,14 @@ class CriteriaFormWidget(QWidget):
             spinbox.setValue(0)
 
     def to_criteria(self) -> SearchCriteria:
+        sport_name = self.sport_combo.currentData()
+        if sport_name is None:
+            sport_name = self.sport_combo.currentText()
+
         return SearchCriteria(
             tournament_name=self.tournament_name_edit.text(),
             event_date=self.date_edit.date().toPyDate() if self.date_checkbox.isChecked() else None,
-            sport_name=self.sport_combo.currentText(),
+            sport_name=str(sport_name),
             winner_name_fragment=self.winner_name_fragment_edit.text(),
             min_prize_amount=self.min_prize_spin.value() if self.min_prize_checkbox.isChecked() else None,
             max_prize_amount=self.max_prize_spin.value() if self.max_prize_checkbox.isChecked() else None,

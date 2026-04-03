@@ -179,8 +179,8 @@ def test_main_window_file_operations_and_error_paths(qapp, controller, monkeypat
     second_db = tmp_path / "second.db"
     monkeypatch.setattr(
         main_window_module.QFileDialog,
-        "getOpenFileName",
-        lambda *args, **kwargs: (str(second_db), "SQLite"),
+        "getOpenFileNames",
+        lambda *args, **kwargs: ([str(second_db)], "SQLite"),
     )
     window._open_database()
     assert controller.current_database_path == second_db
@@ -211,13 +211,13 @@ def test_main_window_file_operations_and_error_paths(qapp, controller, monkeypat
 
     monkeypatch.setattr(
         controller,
-        "open_database",
-        lambda path: (_ for _ in ()).throw(RuntimeError("open error")),
+        "open_databases",
+        lambda paths: (_ for _ in ()).throw(RuntimeError("open error")),
     )
     monkeypatch.setattr(
         main_window_module.QFileDialog,
-        "getOpenFileName",
-        lambda *args, **kwargs: (str(tmp_path / "bad_open.db"), "SQLite"),
+        "getOpenFileNames",
+        lambda *args, **kwargs: ([str(tmp_path / "bad_open.db")], "SQLite"),
     )
     window._open_database()
 
@@ -234,6 +234,56 @@ def test_main_window_file_operations_and_error_paths(qapp, controller, monkeypat
     window._import_xml()
 
     assert len(warnings) == 4
+    window.close()
+
+
+def test_main_window_open_multiple_databases_shows_unique_records(
+    qapp,
+    controller,
+    monkeypatch,
+    tmp_path,
+    make_input,
+):
+    import app.views.main_window as main_window_module
+
+    duplicate_record = make_input(
+        tournament_name="Кубок Минска",
+        event_date=date(2025, 1, 10),
+        sport_name="Tennis",
+        winner_full_name="Иванов Иван Иванович",
+        prize_amount=1000.0,
+    )
+    extra_record = make_input(
+        tournament_name="Гран-при Витебска",
+        event_date=date(2025, 4, 5),
+        sport_name="Basketball",
+        winner_full_name="Ковалев Андрей Сергеевич",
+        prize_amount=4100.0,
+    )
+
+    extra_database = tmp_path / "extra.db"
+    extra_controller = type(controller)(extra_database)
+    try:
+        extra_controller.add_record(duplicate_record)
+        extra_controller.add_record(extra_record)
+    finally:
+        extra_controller.close()
+
+    window = MainWindow(controller)
+    monkeypatch.setattr(
+        main_window_module.QFileDialog,
+        "getOpenFileNames",
+        lambda *args, **kwargs: (
+            [str(controller.current_database_path), str(extra_database)],
+            "SQLite",
+        ),
+    )
+
+    window._open_database()
+
+    assert window.table_widget.rowCount() == 4
+    assert "Открыто БД: 2." in window.page_title_label.text()
+    assert "extra.db" in window.statusBar().currentMessage()
     window.close()
 
 
