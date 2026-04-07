@@ -7,6 +7,7 @@ from PyQt5.QtGui import QCloseEvent
 from PyQt5.QtWidgets import QMessageBox
 
 from app.models import TournamentRecordInput, ValidationError
+from app.services import TournamentXmlWriter
 from app.views.main_window import MainWindow
 
 
@@ -161,11 +162,12 @@ def test_main_window_file_operations_and_error_paths(qapp, controller, monkeypat
     controller.export_to_xml(import_source)
     monkeypatch.setattr(
         main_window_module.QFileDialog,
-        "getOpenFileName",
-        lambda *args, **kwargs: (str(import_source), "XML"),
+        "getOpenFileNames",
+        lambda *args, **kwargs: ([str(import_source)], "XML"),
     )
     window._import_xml()
     assert controller.get_records_page(1, 10).total_count == 3
+    assert controller.opened_xml_paths == (import_source,)
 
     db_target = tmp_path / "saved_db"
     monkeypatch.setattr(
@@ -184,6 +186,7 @@ def test_main_window_file_operations_and_error_paths(qapp, controller, monkeypat
     )
     window._open_database()
     assert controller.current_database_path == second_db
+    assert controller.opened_xml_paths == ()
 
     monkeypatch.setattr(
         main_window_module.QFileDialog,
@@ -223,13 +226,13 @@ def test_main_window_file_operations_and_error_paths(qapp, controller, monkeypat
 
     monkeypatch.setattr(
         controller,
-        "import_from_xml",
-        lambda path: (_ for _ in ()).throw(RuntimeError("import error")),
+        "import_xml_sources",
+        lambda paths: (_ for _ in ()).throw(RuntimeError("import error")),
     )
     monkeypatch.setattr(
         main_window_module.QFileDialog,
-        "getOpenFileName",
-        lambda *args, **kwargs: (str(import_source), "XML"),
+        "getOpenFileNames",
+        lambda *args, **kwargs: ([str(import_source)], "XML"),
     )
     window._import_xml()
 
@@ -287,6 +290,60 @@ def test_main_window_open_multiple_databases_shows_unique_records(
     window.close()
 
 
+def test_main_window_import_multiple_xml_sources_shows_unique_records(
+    qapp,
+    controller,
+    monkeypatch,
+    tmp_path,
+    make_input,
+):
+    import app.views.main_window as main_window_module
+
+    duplicate_record = make_input(
+        tournament_name="Кубок Минска",
+        event_date=date(2025, 1, 10),
+        sport_name="Tennis",
+        winner_full_name="Иванов Иван Иванович",
+        prize_amount=1000.0,
+    ).to_record()
+    extra_record = make_input(
+        tournament_name="Гран-при Витебска",
+        event_date=date(2025, 4, 5),
+        sport_name="Basketball",
+        winner_full_name="Ковалев Андрей Сергеевич",
+        prize_amount=4100.0,
+    ).to_record()
+    second_extra_record = make_input(
+        tournament_name="Кубок Гродно",
+        event_date=date(2025, 6, 7),
+        sport_name="Chess",
+        winner_full_name="Орлов Игорь Павлович",
+        prize_amount=5100.0,
+    ).to_record()
+
+    first_xml = tmp_path / "first.xml"
+    second_xml = tmp_path / "second.xml"
+    xml_writer = TournamentXmlWriter()
+    xml_writer.write(first_xml, [duplicate_record, extra_record])
+    xml_writer.write(second_xml, [second_extra_record])
+
+    monkeypatch.setattr(QMessageBox, "question", lambda *args, **kwargs: QMessageBox.Yes)
+    monkeypatch.setattr(
+        main_window_module.QFileDialog,
+        "getOpenFileNames",
+        lambda *args, **kwargs: ([str(first_xml), str(second_xml)], "XML"),
+    )
+
+    window = MainWindow(controller)
+    window._import_xml()
+
+    assert window.table_widget.rowCount() == 5
+    assert "XML: 2." in window.page_title_label.text()
+    assert "first.xml" in window._build_database_status_message()
+    assert "second.xml" in window._build_database_status_message()
+    window.close()
+
+
 def test_main_window_import_cancel_and_close_event(qapp, controller, monkeypatch, tmp_path):
     import app.views.main_window as main_window_module
 
@@ -294,8 +351,8 @@ def test_main_window_import_cancel_and_close_event(qapp, controller, monkeypatch
     monkeypatch.setattr(QMessageBox, "question", lambda *args, **kwargs: QMessageBox.No)
     monkeypatch.setattr(
         main_window_module.QFileDialog,
-        "getOpenFileName",
-        lambda *args, **kwargs: (str(tmp_path / "ignored.xml"), "XML"),
+        "getOpenFileNames",
+        lambda *args, **kwargs: ([str(tmp_path / "ignored.xml")], "XML"),
     )
     monkeypatch.setattr(controller, "close", lambda: close_calls.append("closed"))
 

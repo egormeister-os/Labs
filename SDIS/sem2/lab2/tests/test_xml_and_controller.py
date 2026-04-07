@@ -136,6 +136,45 @@ def test_controller_open_databases_merges_unique_records_and_sports(tmp_path, sa
         controller.close()
 
 
+def test_controller_import_xml_sources_merges_unique_records_and_sports(tmp_path, sample_inputs, make_input):
+    controller = AppController(tmp_path / "source.db")
+    xml_writer = TournamentXmlWriter()
+    first_xml = tmp_path / "first.xml"
+    second_xml = tmp_path / "second.xml"
+
+    extra_record = make_input(
+        tournament_name="Гран-при Витебска",
+        event_date=date(2025, 4, 5),
+        sport_name="Basketball",
+        winner_full_name="Ковалев Андрей Сергеевич",
+        prize_amount=4100.0,
+    ).to_record()
+    second_extra_record = make_input(
+        tournament_name="Кубок Гродно",
+        event_date=date(2025, 6, 7),
+        sport_name="Chess",
+        winner_full_name="Орлов Игорь Павлович",
+        prize_amount=5100.0,
+    ).to_record()
+
+    try:
+        for record_input in sample_inputs:
+            controller.add_record(record_input)
+
+        xml_writer.write(first_xml, [sample_inputs[0].to_record(), extra_record])
+        xml_writer.write(second_xml, [second_extra_record])
+
+        imported_count = controller.import_xml_sources([first_xml, second_xml])
+        page = controller.get_records_page(page=1, page_size=10)
+
+        assert imported_count == 3
+        assert controller.opened_xml_paths == (first_xml, second_xml)
+        assert page.total_count == 5
+        assert controller.get_unique_sports() == ["Basketball", "Chess", "Football", "Tennis"]
+    finally:
+        controller.close()
+
+
 @pytest.mark.parametrize(
     ("page", "page_size", "total_count", "expected"),
     [

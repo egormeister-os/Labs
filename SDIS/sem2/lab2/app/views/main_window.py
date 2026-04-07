@@ -63,7 +63,7 @@ class MainWindow(QMainWindow):
     def _create_actions(self) -> None:
         self.open_database_action = QAction("Открыть БД...", self)
         self.save_database_as_action = QAction("Сохранить БД как...", self)
-        self.import_xml_action = QAction("Импорт из XML...", self)
+        self.import_xml_action = QAction("Импорт XML-файлов...", self)
         self.export_xml_action = QAction("Экспорт в XML...", self)
         self.exit_action = QAction("Выход", self)
         self.add_record_action = QAction("Добавить запись", self)
@@ -145,9 +145,13 @@ class MainWindow(QMainWindow):
             total_pages=page_result.total_pages,
         )
         database_count = len(self.controller.opened_database_paths)
+        xml_count = len(self.controller.opened_xml_paths)
+        source_summary = f"Открыто БД: {database_count}."
+        if xml_count:
+            source_summary = f"{source_summary} XML: {xml_count}."
         self.page_title_label.setText(
             f"Объединенный массив записей. Показано {page_result.current_page_count} "
-            f"из {page_result.total_count}. Открыто БД: {database_count}."
+            f"из {page_result.total_count}. {source_summary}"
         )
         self.statusBar().showMessage(self._build_database_status_message())
 
@@ -214,31 +218,35 @@ class MainWindow(QMainWindow):
         self.statusBar().showMessage(f"База данных сохранена: {target_path}", 5000)
 
     def _import_xml(self) -> None:
-        path, _ = QFileDialog.getOpenFileName(
+        paths, _ = QFileDialog.getOpenFileNames(
             self,
-            "Импорт из XML",
+            "Импорт XML-файлов",
             str(self.controller.current_database_path.parent),
             "XML (*.xml);;Все файлы (*)",
         )
-        if not path:
+        if not paths:
             return
 
         answer = QMessageBox.question(
             self,
             "Подтверждение импорта",
-            "Импорт из XML заменит текущий массив записей в базе данных. Продолжить?",
+            "Выбранные XML-файлы будут добавлены к общему отображаемому массиву "
+            "без замены записей в SQLite-базах. Продолжить?",
         )
         if answer != QMessageBox.Yes:
             return
 
         try:
-            imported_count = self.controller.import_from_xml(path)
+            imported_count = self.controller.import_xml_sources(paths)
         except Exception as error:
             QMessageBox.warning(self, "Ошибка импорта", str(error))
             return
 
         self.refresh_records(1)
-        self.statusBar().showMessage(f"Импортировано записей: {imported_count}.", 5000)
+        self.statusBar().showMessage(
+            f"Импортировано из XML: {imported_count}. Файлов: {len(paths)}.",
+            5000,
+        )
 
     def _export_xml(self) -> None:
         path, _ = QFileDialog.getSaveFileName(
@@ -263,15 +271,22 @@ class MainWindow(QMainWindow):
 
     def _build_database_status_message(self) -> str:
         database_paths = self.controller.opened_database_paths
+        xml_paths = self.controller.opened_xml_paths
         if len(database_paths) == 1:
-            return f"Текущая БД: {database_paths[0]}"
+            message = f"Текущая БД: {database_paths[0]}"
+        else:
+            names = ", ".join(path.name for path in database_paths)
+            message = (
+                f"Открыто БД: {len(database_paths)}. "
+                f"Основная: {database_paths[0].name}. "
+                f"Подключены: {names}"
+            )
 
-        names = ", ".join(path.name for path in database_paths)
-        return (
-            f"Открыто БД: {len(database_paths)}. "
-            f"Основная: {database_paths[0].name}. "
-            f"Подключены: {names}"
-        )
+        if xml_paths:
+            xml_names = ", ".join(path.name for path in xml_paths)
+            message = f"{message}. XML-источники: {len(xml_paths)} ({xml_names})"
+
+        return message
 
     @staticmethod
     def _ensure_suffix(path: Path, suffix: str) -> Path:

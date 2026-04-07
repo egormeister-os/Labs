@@ -22,6 +22,14 @@ class AppController:
     def opened_database_paths(self) -> tuple[Path, ...]:
         return self.repository.database_paths
 
+    @property
+    def opened_xml_paths(self) -> tuple[Path, ...]:
+        return self.repository.xml_source_paths
+
+    @property
+    def opened_source_paths(self) -> tuple[Path, ...]:
+        return self.repository.source_paths
+
     def add_record(self, record_input: TournamentRecordInput) -> TournamentRecord:
         return self.repository.add_record(record_input)
 
@@ -59,6 +67,20 @@ class AppController:
         records = self.xml_reader.read(source_path)
         self.repository.replace_all(records)
         return len(records)
+
+    def import_xml_sources(self, source_paths: Sequence[str | Path]) -> int:
+        if not source_paths:
+            raise ValueError("Не выбрано ни одного XML-файла.")
+
+        xml_sources = []
+        total_count = 0
+        for source_path in source_paths:
+            records = self.xml_reader.read(source_path)
+            xml_sources.append((source_path, records))
+            total_count += len(records)
+
+        self.repository.add_xml_sources(xml_sources)
+        return total_count
 
     def open_database(self, database_path: str | Path) -> None:
         self.repository.switch_database(database_path)

@@ -3,7 +3,12 @@ from __future__ import annotations
 from collections.abc import Sequence
 from pathlib import Path
 
-from app.models import SearchCriteria, TournamentRecord, TournamentRecordInput
+from app.models import (
+    SearchCriteria,
+    TournamentRecord,
+    TournamentRecordInput,
+    ValidationError,
+)
 
 from .tournament_repository import TournamentRepository
 
@@ -11,6 +16,7 @@ from .tournament_repository import TournamentRepository
 class MultiDatabaseTournamentRepository:
     def __init__(self, database_paths: str | Path | Sequence[str | Path]) -> None:
         self.repositories: list[TournamentRepository] = []
+        self.xml_sources: list[_XmlRecordSource] = []
         self.open_databases(database_paths)
 
     @property
@@ -20,6 +26,14 @@ class MultiDatabaseTournamentRepository:
     @property
     def database_paths(self) -> tuple[Path, ...]:
         return tuple(repository.database_path for repository in self.repositories)
+
+    @property
+    def xml_source_paths(self) -> tuple[Path, ...]:
+        return tuple(source.source_path for source in self.xml_sources)
+
+    @property
+    def source_paths(self) -> tuple[Path, ...]:
+        return (*self.database_paths, *self.xml_source_paths)
 
     @property
     def primary_repository(self) -> TournamentRepository:
@@ -34,6 +48,7 @@ class MultiDatabaseTournamentRepository:
 
         self.close()
         self.repositories = [TournamentRepository(path) for path in normalized_paths]
+        self.xml_sources = []
 
     def switch_database(self, database_path: str | Path) -> None:
         self.open_databases([database_path])
@@ -59,13 +74,25 @@ class MultiDatabaseTournamentRepository:
         return self._filter_records(criteria)[offset : offset + max(limit, 0)]
 
     def delete_by_criteria(self, criteria: SearchCriteria) -> int:
-        return sum(repository.delete_by_criteria(criteria) for repository in self.repositories)
+        deleted_from_databases = sum(
+            repository.delete_by_criteria(criteria)
+            for repository in self.repositories
+        )
+        deleted_from_xml = sum(
+            source.delete_by_criteria(criteria)
+            for source in self.xml_sources
+        )
+        return deleted_from_databases + deleted_from_xml
 
     def replace_all(self, records: Sequence[TournamentRecord]) -> None:
         self.primary_repository.replace_all(records)
 
     def get_all_records(self) -> list[TournamentRecord]:
-        records = [record for repository in self.repositories for record in repository.get_all_records()]
+        records = [
+            record
+            for source in (*self.repositories, *self.xml_sources)
+            for record in source.get_all_records()
+        ]
         return self._deduplicate_records(records)
 
     def get_unique_sports(self) -> list[str]:
@@ -83,10 +110,33 @@ class MultiDatabaseTournamentRepository:
         finally:
             target_repository.close()
 
+    def add_xml_sources(
+        self,
+        xml_sources: Sequence[tuple[str | Path, Sequence[TournamentRecord]]],
+    ) -> None:
+        normalized_sources = [
+            _XmlRecordSource(source_path, records)
+            for source_path, records in xml_sources
+        ]
+        if not normalized_sources:
+            raise ValueError("Не выбрано ни одного XML-файла.")
+
+        existing_by_path = {
+            source.source_path: source
+            for source in self.xml_sources
+        }
+        for source in normalized_sources:
+            existing_by_path[source.source_path] = source
+        self.xml_sources = list(existing_by_path.values())
+
+    def clear_xml_sources(self) -> None:
+        self.xml_sources = []
+
     def close(self) -> None:
         for repository in self.repositories:
             repository.close()
         self.repositories = []
+        self.xml_sources = []
 
     def _filter_records(self, criteria: SearchCriteria) -> list[TournamentRecord]:
         normalized = criteria.normalized()
@@ -168,3 +218,29 @@ class MultiDatabaseTournamentRepository:
             seen_paths.add(normalized_path)
             unique_paths.append(normalized_path)
         return unique_paths
+
+
+class _XmlRecordSource:
+    def __init__(
+        self,
+        source_path: str | Path,
+        records: Sequence[TournamentRecord],
+    ) -> None:
+        self.source_path = Path(source_path).expanduser().resolve()
+        self.records = list(records)
+
+    def get_all_records(self) -> list[TournamentRecord]:
+        return list(self.records)
+
+    def delete_by_criteria(self, criteria: SearchCriteria) -> int:
+        normalized = criteria.normalized()
+        if normalized.is_empty():
+            raise ValidationError("Для удаления необходимо задать хотя бы одно условие.")
+
+        original_count = len(self.records)
+        self.records = [
+            record
+            for record in self.records
+            if not MultiDatabaseTournamentRepository._matches_criteria(record, normalized)
+        ]
+        return original_count - len(self.records)
